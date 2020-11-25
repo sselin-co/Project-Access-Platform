@@ -1,3 +1,6 @@
+# Project-Access-Platform
+This is the working repo for our Project Access project, as part of the Menon Labs program. 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
