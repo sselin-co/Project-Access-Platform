@@ -1,0 +1,25 @@
+{
+  "name": "project-access",
+  "version": "1.0.0",
+  "description": "Web platform for Project Access built during the Menon Labs program",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "popper": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sselin-co/Project-Access-Platform.git"
+  },
+  "author": "Shaya Selincourt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sselin-co/Project-Access-Platform/issues"
+  },
+  "homepage": "https://github.com/sselin-co/Project-Access-Platform#readme"
+}
