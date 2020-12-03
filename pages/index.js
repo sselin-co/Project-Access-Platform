@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 
 export default function Home() {
   return (
@@ -8,18 +10,47 @@ export default function Home() {
         <title>Project Access Platform</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      
+      <navbar>
+        <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
+          <Navbar.Brand href="#home">
+            <img
+              src="/austria.png"
+              width="100"
+              height="50"
+              className="d-inline-block align-top"
+              alt="Project Access logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ml-auto" >
+                <Nav.Link href="#home" className = {styles.navLink}>Start</Nav.Link>
+                <Nav.Link href="#link" className = {styles.navLink}>Bootcamp</Nav.Link>
+                <Nav.Link href="#link" className = {styles.navLink}>Become a mentor</Nav.Link>
+                <Nav.Link href="#login" className = {styles.navLink+ ' ' +styles.navLinkLogin}>Log In</Nav.Link>
+                {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown> */}
+              </Nav>
+            </Navbar.Collapse>
+        </Navbar></navbar>
 
-      <main className={styles.main}>
+      <main className={styles.main}>   
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Project Access Austria
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
-        </p>
+        </p> */}
 
-        <div className={styles.grid}>
+        {/* <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h3>Documentation &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
@@ -47,18 +78,18 @@ export default function Home() {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
-        </div>
+        </div> */}
       </main>
 
       <footer className={styles.footer}>
-        <a
+        {/* <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
           Powered by{' '}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+        </a> */}
       </footer>
     </div>
   )
