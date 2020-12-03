@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+p {
+  color: #2A3038;
+}
