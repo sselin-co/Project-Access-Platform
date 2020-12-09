@@ -132,13 +132,14 @@
   display: block;
   margin-left: 20px;
   margin-right: 20px;
-  font-size: larger;
+  font-size: larger !important;
 }
 
-.navLinkLogin {
-  background-color: #fbac2b;
+.navDropdown {
+  background: linear-gradient(0deg, #fbac2b 0%, #fbac2b 100%);
   color: #2A3038 !important;
-  border-radius: 10px;
+  padding: 10px 10px;
+  border-color: #9409b5;
 }
 
 @media (max-width: 600px) {
