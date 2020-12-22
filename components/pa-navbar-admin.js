@@ -40,7 +40,7 @@ export default function PaNavbarAdmin() {
         <Nav className="ml-auto">
           <Nav.Link
             href="#home"
-            activeClassName="active"
+            activeclassname="active"
             className={styles.navLink}
           >
             Applications

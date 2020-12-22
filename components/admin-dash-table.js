@@ -15,6 +15,9 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
+import useSwr from "swr";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function AdminDashTable() {
   const style = {
@@ -22,6 +25,14 @@ export default function AdminDashTable() {
     paddingRight: "2rem",
     marginBottom: "5rem",
   };
+
+  const { data, error } = useSwr("/api/getApplicants", fetcher);
+
+  if (error) return <div>Failed to load applicant information</div>;
+  if (!data) return <div>Loading...</div>;
+
+  console.log(data);
+  console.log(data[0].email);
   return (
     <>
       <Row>
@@ -59,7 +70,7 @@ export default function AdminDashTable() {
           <tr>
             <td>
               <Link href="/admin/student-info">
-                <a>Rachel Kindangen</a>
+                <a>{data[0].name}</a>
               </Link>
             </td>
             <td>Undergraduate</td>
