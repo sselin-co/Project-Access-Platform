@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import Admin from "../utils/Admin";
 
 const options = {
   // Configure one or more authentication providers
@@ -12,7 +13,7 @@ const options = {
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: {  label: "Password", type: "password" }
       },
       authorize: async (credentials) => {
@@ -21,6 +22,16 @@ const options = {
           // submitted and returns either a object representing a user or value
           // that is false/null if the credentials are invalid.
           // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+          if (credentials.email.length === 0 || credentials.password.length === 0){
+            res.status(400).json({error: `Please enter email and password`});
+        } else{
+            if(Admin.checkAuthentication(credentials.email, credentials.password)){
+                //req.session.username=req.body.email;
+                user = {email: credentials.email, type: "admin"};
+              }else{
+                res.status(400).json({error: `Credentials incorrect`});
+              }
+          }
           return null
         }
         if (user) {
@@ -32,6 +43,9 @@ const options = {
       }
     })
     ],
+
+    database: process.env.DATABASE_URL,
+
     session: {
         jwt: true,
     }
