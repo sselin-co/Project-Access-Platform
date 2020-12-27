@@ -17,7 +17,7 @@ class Student {
       });
     }
 
-    static async signIn(email, password){
+    static async checkAuthentication(email, password){
         base('Application').select({
           filterByFormula: `email = '${email}'`,
           fields: ["password"]
@@ -30,5 +30,22 @@ class Student {
           return password === record.get("password");
         });
       }
+
+    static async getStatus(email){
+      try{
+        return base('Application').select({
+          filterByFormula: `email = '${email}'`,
+          fields: ["status"]
+        }).firstPage(function(err, records) {
+          records.forEach(function(record){
+            if (err) {console.error(err); return;}
+            console.log('Retrieved application status for', record.get("email"));
+            return record.get("status");
+          })
+        });
+      } catch(err){
+        console.error(err);
+      }
+    }
   }
   module.exports = Student;

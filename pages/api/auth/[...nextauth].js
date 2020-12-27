@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import Admin from "../utils/Admin";
+import Student from '../utils/Student';
 
 const options = {
   // Configure one or more authentication providers
@@ -17,23 +18,19 @@ const options = {
         password: {  label: "Password", type: "password" }
       },
       authorize: async (credentials) => {
-        const user = (credentials) => {
-          // You need to provide your own logic here that takes the credentials
-          // submitted and returns either a object representing a user or value
-          // that is false/null if the credentials are invalid.
-          // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-          if (credentials.email.length === 0 || credentials.password.length === 0){
-            res.status(400).json({error: `Please enter email and password`});
+        let user;
+        if (credentials.email.length === 0 || credentials.password.length === 0){
+            user = null;
         } else{
-            if(Admin.checkAuthentication(credentials.email, credentials.password)){
-                //req.session.username=req.body.email;
+            if (Admin.checkAuthentication(credentials.email, credentials.password)){
                 user = {email: credentials.email, type: "admin"};
-              }else{
-                res.status(400).json({error: `Credentials incorrect`});
-              }
-          }
-          return null
+            } else if (Student.checkAuthentication(credentials.email, credentials.password)){
+                user = {email: credentials.email, type: "student"};
+            } else{
+                user = null;
+            }
         }
+
         if (user) {
           // Any user object returned here will be saved in the JSON Web Token
           return Promise.resolve(user)
@@ -44,13 +41,11 @@ const options = {
     })
     ],
 
-    database: process.env.DATABASE_URL,
+    //database: process.env.DATABASE_URL,
 
     session: {
         jwt: true,
     }
-  // A database is optional, but required to persist accounts in a database
-  //database: process.env.DATABASE_URL,
 }
 
 export default (req, res) => NextAuth(req, res, options)
