@@ -30,20 +30,14 @@ class Student {
     }
 
     static async getStatus(email){
-      try{
-        return base('Application').select({
-          filterByFormula: `email = '${email}'`,
-          fields: ["status"]
-        }).firstPage(function(err, records) {
-          records.forEach(function(record){
-            if (err) {console.error(err); return;}
-            console.log('Retrieved application status for', record.get("email"));
-            return record.get("status");
-          })
-        });
-      } catch(err){
-        console.error(err);
-      }
+      let records = await base('Application').select({
+        filterByFormula: `email = '${email}'`,
+        fields: ["status", "email"]
+      }).firstPage(); 
+      //console.log("records", records);
+      if (records.length === 0) {console.log("email not in student database"); throw `You're not logged in as a student`;}
+      console.log('Retrieved application status for', records[0].get("email"));
+      return records[0].get("status");
     }
   }
   module.exports = Student;

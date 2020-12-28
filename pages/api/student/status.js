@@ -8,12 +8,14 @@ import Student from "../utils/Student.js"
  */
 export default async (req, res) => {
   const session = await getSession({ req })
-    console.log("session: ", session);
+
   if (session) {
     try{
-        const status = Student.getStatus(session.user.email);
+        let status = await Student.getStatus(session.user.email);
+        console.log(session.user.email, status);
         res.status(200).json({name: session.user.email, status: status, message:`Status obtained successfully.`});
     } catch (err) {
+        console.log("error", err);
         res.status(400).json({error: err});
     }
   } else {
