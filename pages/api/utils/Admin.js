@@ -3,20 +3,14 @@ const base = new Airtable({apiKey:process.env.AIRTABLE_API_KEY}).base(process.en
 
 class Admin {
   static async checkAuthentication(email, password){
-    try{
-      return base('Admin').select({
+      let records = await base('Admin').select({
         filterByFormula: `email = '${email}'`,
         fields: ["email", "password"]
-      }).firstPage(function(err, records) {
-        records.forEach(function(record){
-          if (err) {console.error(err); return;}
-          console.log('Retrieved', record.get("email"));
-          return record.get("email") === email && record.get("password") === password;
-        })
-      });
-    } catch(err){
-      console.error(err);
-    }
+      }).firstPage();
+      if (records.length === 0) {console.log("email does not exist"); return false;}
+      else{
+        return records[0].get("email") === email && records[0].get("password") === password;
+      }
   }
 }
 module.exports = Admin;

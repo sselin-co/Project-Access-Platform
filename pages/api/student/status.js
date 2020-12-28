@@ -8,7 +8,7 @@ import Student from "../utils/Student.js"
  */
 export default async (req, res) => {
   const session = await getSession({ req })
-    console.log(session);
+    console.log("session: ", session);
   if (session) {
     try{
         const status = Student.getStatus(session.user.email);

@@ -22,15 +22,17 @@ const options = {
         if (credentials.email.length === 0 || credentials.password.length === 0){
             user = null;
         } else{
-            if (Admin.checkAuthentication(credentials.email, credentials.password)){
-                user = {email: credentials.email, type: "admin"};
-            } else if (Student.checkAuthentication(credentials.email, credentials.password)){
-                user = {email: credentials.email, type: "student"};
+            let admin = await Admin.checkAuthentication(credentials.email, credentials.password);
+            let student = await Student.checkAuthentication(credentials.email, credentials.password);
+            if (admin){
+                user = {email: credentials.email, name: "admin"};
+            } else if (student){
+                user = {email: credentials.email, name: "student"};
             } else{
                 user = null;
             }
         }
-
+        console.log(user);
         if (user) {
           // Any user object returned here will be saved in the JSON Web Token
           return Promise.resolve(user)
