@@ -14,8 +14,10 @@ const options = {
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: {  label: "Password", type: "password" }
+        // firstname: { label: "First Name", type: "text" },
+        // lastname: { label: "Last Name", type: "text" },
+        email: { label: "Email", type: "email" },
+        password: {  label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         let user;
@@ -27,6 +29,7 @@ const options = {
             if (admin){
                 user = {email: credentials.email, name: "admin"};
             } else if (student){
+              Student.signUp(credentials.email, credentials.firstname, credentials.lastname, credentials.password);
                 user = {email: credentials.email, name: "student"};
             } else{
                 user = null;
