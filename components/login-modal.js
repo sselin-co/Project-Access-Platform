@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form } from "react-bootstrap";
+import SignUpModal from "../components/signup-modal";
 
 export default function LoginModal(props) {
   const [emailAddress, setEmailAddress] = useState("");
@@ -62,7 +62,7 @@ export default function LoginModal(props) {
       {/* <Modal.Footer>
         <Form.Text className="text-muted">Don't have an account yet?</Form.Text>
         <Button
-          onClick={props.onHide}
+          onClick={handleSignUpClick}
           variant="warning"
           className={styles.navbarButton}
         >
