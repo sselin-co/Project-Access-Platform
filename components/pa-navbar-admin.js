@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../styles/Home.module.css";
+
+// I know this is in __app.js as a global stylesheet. However, removing this line will center the PA logo for some reason.
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Nav,
@@ -44,6 +46,9 @@ export default function PaNavbarAdmin() {
             className={styles.navLink}
           >
             Applications
+          </Nav.Link>
+          <Nav.Link href="#link" className={styles.navLink}>
+            Course Builder
           </Nav.Link>
           <Nav.Link href="#link" className={styles.navLink}>
             Students

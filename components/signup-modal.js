@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Button,
-  Modal,
-  Form,
-  InputGroup,
-  FormControl,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { Button, Modal, Form, Col } from "react-bootstrap";
 
 export default function SignUpModal(props) {
   return (
@@ -62,7 +53,8 @@ export default function SignUpModal(props) {
           </Button>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
+      {/* // Need ability to navigate between components */}
+      {/* <Modal.Footer>
         <Form.Text className="text-muted">Already have an account?</Form.Text>
         <Button
           onClick={props.onHide}
@@ -71,7 +63,7 @@ export default function SignUpModal(props) {
         >
           Log In
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }

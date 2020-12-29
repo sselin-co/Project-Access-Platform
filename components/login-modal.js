@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form } from "react-bootstrap";
+import SignUpModal from "../components/signup-modal";
 
 export default function LoginModal(props) {
+  function handleSignUpClick() {
+    props.onHide();
+  }
   return (
     <Modal
       {...props}
@@ -19,9 +22,6 @@ export default function LoginModal(props) {
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" />
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
@@ -41,16 +41,18 @@ export default function LoginModal(props) {
           </Button>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
+
+      {/* Need ability to navigate between components  */}
+      {/* <Modal.Footer>
         <Form.Text className="text-muted">Don't have an account yet?</Form.Text>
         <Button
-          onClick={props.onHide}
+          onClick={handleSignUpClick}
           variant="warning"
           className={styles.navbarButton}
         >
           Sign Up
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../styles/Home.module.css";
+
+// I know this is in __app.js as a global stylesheet. However, removing this line will center the PA logo for some reason.
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Nav,
@@ -10,13 +12,21 @@ import {
   Button,
   Dropdown,
 } from "react-bootstrap";
-import LoginModal from "../components/login-modal";
-import SignUpModal from "../components/signup-modal";
+import LoginModal from "./login-modal";
+import SignUpModal from "./signup-modal";
 import Image from "next/image";
 
 export default function PaNavbar() {
   const [loginModalShow, setLoginModalShow] = React.useState(false);
   const [signUpModalShow, setSignUpModalShow] = React.useState(false);
+
+  function handleLoginModalHide() {
+    setLoginModalShow(false);
+  }
+
+  function handleSignUpModalHide() {
+    setSignUpModalShow(false);
+  }
 
   return (
     <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
@@ -56,14 +66,8 @@ export default function PaNavbar() {
             Sign Up
           </Button>
 
-          <LoginModal
-            show={loginModalShow}
-            onHide={() => setLoginModalShow(false)}
-          />
-          <SignUpModal
-            show={signUpModalShow}
-            onHide={() => setSignUpModalShow(false)}
-          />
+          <LoginModal show={loginModalShow} onHide={handleLoginModalHide} />
+          <SignUpModal show={signUpModalShow} onHide={handleSignUpModalHide} />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
