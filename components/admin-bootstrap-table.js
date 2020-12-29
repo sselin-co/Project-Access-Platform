@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import useSwr from "swr";
 import BootstrapTable from "react-bootstrap-table-next";

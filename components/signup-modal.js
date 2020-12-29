@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form, Col } from "react-bootstrap";
 
 export default function SignUpModal(props) {

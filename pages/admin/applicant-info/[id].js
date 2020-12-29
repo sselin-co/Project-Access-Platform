@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styles from "../../../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import PaNavbarAdmin from "../../../components/pa-navbar-admin.js";
 import DisplayApplicantInfo from "../../../components/applicant-info";
 
