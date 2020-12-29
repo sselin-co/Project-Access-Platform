@@ -6,8 +6,8 @@ class Student {
     static async signUp(email, firstname, lastname, password){
       return base('Application').create({
         "email": email,
-        "firstname": firstname,
-        "lastname": lastname,
+        "first_name": firstname,
+        "last_name": lastname,
         "password": password
       }, function(err, record) {
         if (err) {
