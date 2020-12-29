@@ -8,7 +8,8 @@ class Student {
         "email": email,
         "first_name": firstname,
         "last_name": lastname,
-        "password": password
+        "password": password,
+        "status": "non-applicant"
       }).then((student) => {
         console.log(`Account created successfully for ${student.getId()}`);
         return {id: student.getId(), email: student.get("email")};
