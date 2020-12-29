@@ -16,6 +16,7 @@ import {
 } from "react-bootstrap";
 import Image from "next/image";
 
+// React component for the default Navbar
 export default function PaNavbarAdmin() {
   return (
     <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
