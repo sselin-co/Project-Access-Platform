@@ -1,4 +1,5 @@
 import React from "react";
+import { useSession, signOut } from 'next-auth/client'
 import styles from "../styles/Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -17,6 +18,7 @@ import Image from "next/image";
 export default function PaNavbar() {
   const [loginModalShow, setLoginModalShow] = React.useState(false);
   const [signUpModalShow, setSignUpModalShow] = React.useState(false);
+  const [session, loading] = useSession();
 
   return (
     <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
@@ -41,7 +43,23 @@ export default function PaNavbar() {
           <Nav.Link href="#link" className={styles.navLink}>
             Become a mentor
           </Nav.Link>
+          {session && <><Button
+            onClick={signOut}
+            variant="outline-light"
+            className={styles.navbarButton}
+          >
+            Log Out
+          </Button>
           <Button
+            onClick=""
+            variant="warning"
+            className={styles.navbarButton}
+          >
+              {session.user.email}
+          </Button>
+          </>}
+          {!session && 
+          <><Button
             onClick={() => setLoginModalShow(true)}
             variant="outline-light"
             className={styles.navbarButton}
@@ -55,6 +73,7 @@ export default function PaNavbar() {
           >
             Sign Up
           </Button>
+          </>}
 
           <LoginModal
             show={loginModalShow}
