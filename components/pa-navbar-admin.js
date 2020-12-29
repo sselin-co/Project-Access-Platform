@@ -46,6 +46,9 @@ export default function PaNavbarAdmin() {
             Applications
           </Nav.Link>
           <Nav.Link href="#link" className={styles.navLink}>
+            Course Builder
+          </Nav.Link>
+          <Nav.Link href="#link" className={styles.navLink}>
             Students
           </Nav.Link>
           <Button variant="warning" className={styles.navbarButton} href="/">

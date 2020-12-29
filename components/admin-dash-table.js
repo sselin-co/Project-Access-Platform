@@ -3,36 +3,317 @@ import styles from "../styles/Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Nav,
-  Navbar,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-  Dropdown,
-  Col,
-  Row,
-  Table,
-} from "react-bootstrap";
+import { Tabs, Tab, Col, Row, Alert } from "react-bootstrap";
 import useSwr from "swr";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory, {
+  PaginationProvider,
+  PaginationListStandalone,
+  SizePerPageDropdownStandalone,
+} from "react-bootstrap-table2-paginator";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+import Loading from "../components/loading";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
+/*
+AdminDashTable: displays all applicants in a table and allows sorting by status and value search. Needs to be refactored pretty badly
+*/
 export default function AdminDashTable() {
   const style = {
     paddingTop: "1.5rem",
     paddingRight: "2rem",
-    marginBottom: "5rem",
+    marginBottom: "2rem",
   };
 
   const { data, error } = useSwr("/api/getApplicants", fetcher);
 
-  if (error) return <div>Failed to load applicant information</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error)
+    return <div>Failed to load applicant information. Error: {error}</div>;
+  if (!data) return <Loading />;
 
-  console.log(data);
-  console.log(data[0].email);
+  // TODO: place formatter functions into admin/utils
+  function applicantNameFormatter(cell, row) {
+    console.log(row);
+    var studentId = row.fields.id;
+    return (
+      // Dynamic route to info of clicked applicant
+      <Link
+        href={"/admin/applicant-info/[id]"}
+        as={`/admin/applicant-info/${studentId}`}
+      >
+        <a>{cell}</a>
+      </Link>
+    );
+  }
+
+  function emailFormatter(cell, row) {
+    return <p>{cell}</p>;
+  }
+
+  function applicationStatusFormatter(cell, row) {
+    switch (cell) {
+      case "non-applicant":
+        return (
+          <Alert variant="dark" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      case "written app submitted":
+        return (
+          <Alert variant="primary" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      case "written app passed":
+        return (
+          <Alert variant="primary" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+        break;
+      case "consultation scheduled":
+        return (
+          <Alert variant="info" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      case "consultation in review":
+        return (
+          <Alert variant="info" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      case "accepted":
+        return (
+          <Alert variant="success" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      case "rejected":
+        return (
+          <Alert variant="danger" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      case "appealing":
+        return (
+          <Alert variant="warning" className={styles.alert}>
+            <p>{cell}</p>
+          </Alert>
+        );
+      default:
+    }
+  }
+
+  const { SearchBar, ClearSearchButton } = Search;
+
+  // Column definitions for the content table
+  const columns = [
+    {
+      dataField: "fields.name",
+      text: "Applicant Name",
+      formatter: applicantNameFormatter,
+      sort: true,
+      align: "center",
+    },
+    {
+      dataField: "fields.email",
+      text: "Applicant Email",
+      formatter: emailFormatter,
+      sort: true,
+      align: "center",
+    },
+    {
+      dataField: "fields.applyingFor",
+      text: "Applicant Year Level",
+      sort: true,
+      align: "center",
+    },
+    {
+      dataField: "fields.applicationStatus",
+      text: "Application Status",
+      formatter: applicationStatusFormatter,
+      sort: true,
+      align: "center",
+    },
+  ];
+
+  // Defines column bootstrap table 2 defaults sorting to
+  const defaultSorted = [
+    {
+      dataField: "fields.name",
+      order: "asc",
+    },
+  ];
+
+  // Filters out anyone who is an ongoing applicant
+  function filterOngoing(record) {
+    return (
+      record.fields.applicationStatus != "rejected" &&
+      record.fields.applicationStatus != "non-applicant" &&
+      record.fields.applicationStatus != "appealing"
+    );
+  }
+
+  // Filters out anyone who isn't appealing
+  function filterAppealed(record) {
+    return record.fields.applicationStatus == "appealing";
+  }
+
+  // Filters out anyone who isn't rejected
+  function filterRejected(record) {
+    return record.fields.applicationStatus == "rejected";
+  }
+
+  const options = {
+    custom: true,
+    paginationSize: 4,
+    pageStartIndex: 1,
+    nextPageTitle: "First page",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Next page",
+    lastPageTitle: "Last page",
+    showTotal: true,
+    totalSize: data.length,
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    sizePerPageList: [
+      {
+        text: "5",
+        value: 5,
+      },
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "20",
+        value: 0,
+      },
+      {
+        text: "All",
+        value: data.length,
+      },
+    ],
+  };
+
+  const contentTableAll = ({ paginationProps, paginationTableProps }) => (
+    <div className={styles.grid}>
+      <ToolkitProvider
+        keyField="id"
+        columns={columns}
+        data={data}
+        search
+        bootstrap4
+      >
+        {(toolkitprops) => (
+          <div>
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
+            <BootstrapTable
+              striped
+              hover
+              noDataIndication="Table is Empty"
+              defaultSorted={defaultSorted}
+              {...toolkitprops.baseProps}
+              {...paginationTableProps}
+            />
+            <SizePerPageDropdownStandalone {...paginationProps} />
+          </div>
+        )}
+      </ToolkitProvider>
+      <PaginationListStandalone {...paginationProps} />
+    </div>
+  );
+
+  const contentTableOngoing = ({ paginationProps, paginationTableProps }) => (
+    <div className={styles.grid}>
+      <ToolkitProvider
+        keyField="id"
+        columns={columns}
+        data={data.filter((record) => filterOngoing(record))}
+        search
+        bootstrap4
+      >
+        {(toolkitprops) => (
+          <div>
+            <SearchBar {...toolkitprops.searchProps} />
+            <BootstrapTable
+              striped
+              hover
+              noDataIndication="Table is Empty"
+              defaultSorted={defaultSorted}
+              {...toolkitprops.baseProps}
+              {...paginationTableProps}
+            />
+            <SizePerPageDropdownStandalone {...paginationProps} />
+          </div>
+        )}
+      </ToolkitProvider>
+      <PaginationListStandalone {...paginationProps} />
+    </div>
+  );
+
+  const contentTableAppealed = ({ paginationProps, paginationTableProps }) => (
+    <div className={styles.grid}>
+      <ToolkitProvider
+        keyField="id"
+        columns={columns}
+        data={data.filter((record) => filterAppealed(record))}
+        search
+        bootstrap4
+      >
+        {(toolkitprops) => (
+          <div>
+            <SearchBar {...toolkitprops.searchProps} />
+            <BootstrapTable
+              striped
+              hover
+              noDataIndication="Table is Empty"
+              defaultSorted={defaultSorted}
+              {...toolkitprops.baseProps}
+              {...paginationTableProps}
+            />
+            <SizePerPageDropdownStandalone {...paginationProps} />
+          </div>
+        )}
+      </ToolkitProvider>
+      <PaginationListStandalone {...paginationProps} />
+    </div>
+  );
+
+  const contentTableRejected = ({ paginationProps, paginationTableProps }) => (
+    <div className={styles.grid}>
+      <ToolkitProvider
+        keyField="id"
+        columns={columns}
+        data={data.filter((record) => filterRejected(record))}
+        search
+        bootstrap4
+      >
+        {(toolkitprops) => (
+          <div>
+            <SearchBar {...toolkitprops.searchProps} />
+            <BootstrapTable
+              striped
+              hover
+              noDataIndication="Table is Empty"
+              defaultSorted={defaultSorted}
+              {...toolkitprops.baseProps}
+              {...paginationTableProps}
+            />
+            <SizePerPageDropdownStandalone {...paginationProps} />
+          </div>
+        )}
+      </ToolkitProvider>
+      <PaginationListStandalone {...paginationProps} />
+    </div>
+  );
+
   return (
     <>
       <Row>
@@ -49,98 +330,31 @@ export default function AdminDashTable() {
           <h1 style={style}>Applications</h1>
         </Col>
       </Row>
-      <Nav variant="tabs" defaultActiveKey="link-1">
-        <Nav.Item>
-          <Nav.Link eventKey="link-1">Ongoing</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2">Appealed</Nav.Link>
-        </Nav.Item>
-      </Nav>
-      <Table striped bordered>
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Applying For</th>
-            <th>Application Stage</th>
-            <th>Candidate Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <Link href="/admin/student-info">
-                <a>{data[0].name}</a>
-              </Link>
-            </td>
-            <td>Undergraduate</td>
-            <td>Written Application</td>
-            <td>
-              <Button>In Review</Button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href="/admin/student-info">
-                <a>Emmanuel Idun</a>
-              </Link>
-            </td>
-            <td>Graduate</td>
-            <td>Written Application</td>
-            <td>
-              <Button variant="warning">Consultation</Button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href="/admin/student-info">
-                <a>Shaya Selincourt</a>
-              </Link>
-            </td>
-            <td>Undergraduate</td>
-            <td>Consultation</td>
-            <td>
-              <Button>In Review</Button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href="/admin/student-info">
-                <a>Cindy Guo</a>
-              </Link>
-            </td>
-            <td>Graduate</td>
-            <td>Consultation</td>
-            <td>
-              <Button variant="success">Accepted</Button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href="/admin/student-info">
-                <a>John Doe</a>
-              </Link>
-            </td>
-            <td>Undergraduate</td>
-            <td>Written Application</td>
-            <td>
-              <Button variant="danger">Rejected</Button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href="/admin/student-info">
-                <a>Sallie Mae</a>
-              </Link>
-            </td>
-            <td>Undergraduate</td>
-            <td>Consultation</td>
-            <td>
-              <Button variant="danger">Rejected</Button>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+      <hr className="w-100" />
+      <Tabs defaultActiveKey="link-1" id="admin-dashboard-tabs">
+        <Tab eventKey="link-1" title="All Applicants">
+          <PaginationProvider pagination={paginationFactory(options)}>
+            {contentTableAll}
+          </PaginationProvider>
+        </Tab>
+        <Tab eventKey="link-2" title="Ongoing">
+          <div className={styles.grid}>
+            <PaginationProvider pagination={paginationFactory(options)}>
+              {contentTableOngoing}
+            </PaginationProvider>
+          </div>
+        </Tab>
+        <Tab eventKey="link-3" title="Appealed">
+          <PaginationProvider pagination={paginationFactory(options)}>
+            {contentTableAppealed}
+          </PaginationProvider>
+        </Tab>
+        <Tab eventKey="link-4" title="Rejected">
+          <PaginationProvider pagination={paginationFactory(options)}>
+            {contentTableRejected}
+          </PaginationProvider>
+        </Tab>
+      </Tabs>
     </>
   );
 }
