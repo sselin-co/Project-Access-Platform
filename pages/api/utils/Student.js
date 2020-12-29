@@ -6,16 +6,17 @@ class Student {
     static async signUp(email, firstname, lastname, password){
       return base('Application').create({
         "email": email,
-        "firstname": firstname,
-        "lastname": lastname,
+        "first_name": firstname,
+        "last_name": lastname,
         "password": password
-      }, function(err, record) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log(`Account created for`, record.get("email"));
+      }).then((student) => {
+        console.log(`Account created successfully for ${student.getId()}`);
+        return {id: student.getId(), email: student.get("email")};
+      }).catch((err) =>{
+        console.log(err);
+        throw err;
       });
+
     }
 
     static async checkAuthentication(email, password){
