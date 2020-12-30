@@ -12,5 +12,16 @@ class Admin {
         return records[0].get("email") === email && records[0].get("password") === password;
       }
   }
+
+  static async nameReturn(email) {
+    let records = await base('Admin').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["email", "firstname"]
+    }).firstPage();
+    if (records.length === 0) { console.log("email does not exist"); return false; }
+    else {
+      return records[0].get("firstname");
+    }
+  }
 }
 module.exports = Admin;
