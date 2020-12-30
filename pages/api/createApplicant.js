@@ -1,3 +1,8 @@
+/* 
+createApplicant.js: used to create a new applicant record in the base. 
+Can be tested by placing a POST request with Postman and making the JSON body the required fields
+*/
+
 import { table } from "./utils/Airtable";
 
 export default async function handler(req, res) {

@@ -31,6 +31,17 @@ class Student {
       }
     }
 
+  static async nameReturn(email) {
+    let records = await base('Application').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["email", "first_name"]
+    }).firstPage();
+    if (records.length === 0) { console.log("email does not exist"); return false; }
+    else {
+      return records[0].get("first_name");
+    }
+  }
+
     static async getStatus(email){
       let records = await base('Application').select({
         filterByFormula: `email = '${email}'`,
