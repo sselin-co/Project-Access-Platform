@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { signOut } from 'next-auth/client'
 import styles from "../styles/Home.module.css";
 
 // I know this is in __app.js as a global stylesheet. However, removing this line will center the PA logo for some reason.
@@ -15,28 +16,26 @@ import {
   Row,
 } from "react-bootstrap";
 import Image from "next/image";
+import Admin from '../pages/api/utils/Admin';
 
-// React component for the default Navbar
-export default function PaNavbarAdmin() {
+export default function PaNavbarAdmin(props) {
+  const [username, setUserName] = useState("");
+
+  Admin.nameReturn(props.email).then((data) => {
+    setUserName(data);
+    
+  });
+
   return (
     <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
       <Navbar.Brand href="/">
-        <Row>
-          <Col>
-            <Image
-              src="/austria.png"
-              width={125}
-              height={60}
-              className="d-inline-block align-top"
-              alt="Project Access logo"
-            />
-          </Col>
-          <Col>
-            <h7>
-              Welcome, <b>Admin</b>
-            </h7>
-          </Col>
-        </Row>
+        <Image
+          src="/austria.png"
+          width={125}
+          height={60}
+          className="d-inline-block align-top"
+          alt="Project Access logo"
+        />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -54,8 +53,20 @@ export default function PaNavbarAdmin() {
           <Nav.Link href="#link" className={styles.navLink}>
             Students
           </Nav.Link>
-          <Button variant="warning" className={styles.navbarButton} href="/">
-            Sign Out
+
+          <Button
+            onClick={signOut}
+            variant="outline-light"
+            className={styles.navbarButton}
+          >
+            Log Out
+          </Button>
+          <Button
+            //onClick={nameDisplay}
+            variant="warning"
+            className={styles.navbarButton}
+          >
+            {username}
           </Button>
         </Nav>
       </Navbar.Collapse>

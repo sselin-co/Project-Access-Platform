@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AdminDashTable from "../../components/admin-dash-table.js";
 
-export default function AdminDashboard() {
+export default function AdminDashboard(props) {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,7 +13,8 @@ export default function AdminDashboard() {
         <link rel="icon" href="/logo_key_colour_highres.ico" />
       </Head>
 
-      <PaNavbarAdmin />
+      {/* <PaNavbar /> */}
+      <PaNavbarAdmin email={props.email}></PaNavbarAdmin>
 
       <main className={styles.main}>
         <AdminDashTable />

@@ -6,16 +6,18 @@ class Student {
     static async signUp(email, firstname, lastname, password){
       return base('Application').create({
         "email": email,
-        "firstname": firstname,
-        "lastname": lastname,
-        "password": password
-      }, function(err, record) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log(`Account created for`, record.get("email"));
+        "first_name": firstname,
+        "last_name": lastname,
+        "password": password,
+        "status": "non-applicant"
+      }).then((student) => {
+        console.log(`Account created successfully for ${student.getId()}`);
+        return {id: student.getId(), email: student.get("email")};
+      }).catch((err) =>{
+        console.log(err);
+        throw err;
       });
+
     }
 
     static async checkAuthentication(email, password){
@@ -28,6 +30,17 @@ class Student {
         return records[0].get("email") === email && records[0].get("password") === password;
       }
     }
+
+  static async nameReturn(email) {
+    let records = await base('Application').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["email", "first_name"]
+    }).firstPage();
+    if (records.length === 0) { console.log("email does not exist"); return false; }
+    else {
+      return records[0].get("first_name");
+    }
+  }
 
     static async getStatus(email){
       let records = await base('Application').select({
