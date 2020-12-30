@@ -33,6 +33,7 @@ const getMinifiedApplicantRecord = (record) => {
       email: record.get("email"),
       applyingFor: record.get("education_level"),
       applicationStatus: record.get("status"),
+      photo: record.get("photo"),
     },
   };
 };

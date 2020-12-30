@@ -41,7 +41,7 @@ export default function PaNavbarAdmin(props) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link
-            href="#home"
+            href="/admin/admin-dashboard"
             activeclassname="active"
             className={styles.navLink}
           >
