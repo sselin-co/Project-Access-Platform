@@ -8,6 +8,8 @@ import {
   Modal,
   Form,
   Col,
+  Alert,
+  Container,
 } from "react-bootstrap";
 
 import Student from '../pages/api/utils/Student';
@@ -18,18 +20,19 @@ export default function SignUpModal(props) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
+  const [show, setShow] = useState(true);
 
-  const validate = ({ firstName, lastName }) => {
-    return {
-      firstName: !firstName || firstName.trim().length === 0
-        ? "First Name is required"
-        : false,
-      lastName:
-        !lastName || lastName.trim().length === 0
-          ? "Last Name is required"
-          : false
-    };
-  };
+  // const validate = ({ firstName, lastName }) => {
+  //   return {
+  //     firstName: !firstName || firstName.trim().length === 0
+  //       ? "First Name is required"
+  //       : false,
+  //     lastName:
+  //       !lastName || lastName.trim().length === 0
+  //         ? "Last Name is required"
+  //         : false
+  //   };
+  // };
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -96,6 +99,9 @@ export default function SignUpModal(props) {
               Minimum 8 characters, at least 1 letter, 1 number and 1 special character
             </Form.Control.Feedback>
           </Form.Group>
+          <Container>
+          <Form.Row>
+            <Col>
           <Button
             type="submit"
             variant="primary"
@@ -103,18 +109,27 @@ export default function SignUpModal(props) {
           >
             Create Account
           </Button>
+            </Col>
+            <Col>
+          {validated && show &&
+          <Alert variant="success" onClose={() => setShow(false)} dismissible>
+                <p>All good! You can <a href="./api/auth/signin/Credentials">log in</a> now</p>
+          </Alert>}
+            </Col>
+          </Form.Row>
+          </Container>
         </Form>
       </Modal.Body>
-      {/* <Modal.Footer>
+      <Modal.Footer>
         <Form.Text className="text-muted">Already have an account?</Form.Text>
         <Button
-          onClick={props.onHide}
+          href="./api/auth/signin/Credentials"
           variant="warning"
           className={styles.navbarButton}
         >
           Log In
         </Button>
-      </Modal.Footer> */}
+      </Modal.Footer>
     </Modal>
   );
 }
