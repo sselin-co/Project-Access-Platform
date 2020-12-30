@@ -1,12 +1,8 @@
 import React from "react";
 import styles from "../styles/Home.module.css";
 import { Button, Modal, Form } from "react-bootstrap";
-import SignUpModal from "../components/signup-modal";
 
 export default function LoginModal(props) {
-  function handleSignUpClick() {
-    props.onHide();
-  }
   return (
     <Modal
       {...props}
