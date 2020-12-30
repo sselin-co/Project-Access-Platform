@@ -107,7 +107,7 @@ export default function AdminDashTable() {
     }
   }
 
-  const { SearchBar, ClearSearchButton } = Search;
+  const { SearchBar } = Search;
 
   // Column definitions for the content table
   const columns = [
@@ -148,12 +148,18 @@ export default function AdminDashTable() {
     },
   ];
 
-  // Filters out anyone who is an ongoing applicant
+  // Filters out non applicants
+  function filterAll(record) {
+    return record.fields.applicationStatus != "non-applicant";
+  }
+
+  // Filters out anyone who isn't an ongoing applicant
   function filterOngoing(record) {
     return (
       record.fields.applicationStatus != "rejected" &&
       record.fields.applicationStatus != "non-applicant" &&
-      record.fields.applicationStatus != "appealing"
+      record.fields.applicationStatus != "appealing" &&
+      record.fields.applicationStatus != "accepted"
     );
   }
 
@@ -165,6 +171,10 @@ export default function AdminDashTable() {
   // Filters out anyone who isn't rejected
   function filterRejected(record) {
     return record.fields.applicationStatus == "rejected";
+  }
+
+  function filterAccepted(record) {
+    return record.fields.applicationStatus == "accepted";
   }
 
   const options = {
@@ -203,7 +213,7 @@ export default function AdminDashTable() {
       <ToolkitProvider
         keyField="id"
         columns={columns}
-        data={data}
+        data={data.filter((record) => filterAll(record))}
         search
         bootstrap4
       >
@@ -235,6 +245,34 @@ export default function AdminDashTable() {
         keyField="id"
         columns={columns}
         data={data.filter((record) => filterOngoing(record))}
+        search
+        bootstrap4
+      >
+        {(toolkitprops) => (
+          <div>
+            <SearchBar {...toolkitprops.searchProps} />
+            <BootstrapTable
+              striped
+              hover
+              noDataIndication="Table is Empty"
+              defaultSorted={defaultSorted}
+              {...toolkitprops.baseProps}
+              {...paginationTableProps}
+            />
+            <SizePerPageDropdownStandalone {...paginationProps} />
+          </div>
+        )}
+      </ToolkitProvider>
+      <PaginationListStandalone {...paginationProps} />
+    </div>
+  );
+
+  const contentTableAccepted = ({ paginationProps, paginationTableProps }) => (
+    <div className={styles.grid}>
+      <ToolkitProvider
+        keyField="id"
+        columns={columns}
+        data={data.filter((record) => filterAccepted(record))}
         search
         bootstrap4
       >
@@ -343,12 +381,17 @@ export default function AdminDashTable() {
             </PaginationProvider>
           </div>
         </Tab>
-        <Tab eventKey="link-3" title="Appealed">
+        <Tab eventKey="link-3" title="Accepted">
+          <PaginationProvider pagination={paginationFactory(options)}>
+            {contentTableAccepted}
+          </PaginationProvider>
+        </Tab>
+        <Tab eventKey="link-4" title="Appealed">
           <PaginationProvider pagination={paginationFactory(options)}>
             {contentTableAppealed}
           </PaginationProvider>
         </Tab>
-        <Tab eventKey="link-4" title="Rejected">
+        <Tab eventKey="link-5" title="Rejected">
           <PaginationProvider pagination={paginationFactory(options)}>
             {contentTableRejected}
           </PaginationProvider>
