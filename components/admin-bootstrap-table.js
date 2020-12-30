@@ -19,7 +19,6 @@ export default function AdminBootstrapTable({ ...props }) {
 
   // TODO: place formatter functions into admin/utils
   function applicantNameFormatter(cell, row) {
-    console.log(row);
     var studentId = row.fields.id;
     return (
       // Dynamic route to info of clicked applicant

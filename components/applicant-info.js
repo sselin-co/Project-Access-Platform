@@ -28,7 +28,6 @@ export default function DisplayApplicantInfo() {
   if (error) return <div>Failed to load applicant information</div>;
   if (!data) return <Loading />;
 
-  //console.log(data.fields.photo[0].url);
   if (data.fields.photo != null) photoURL = data.fields.photo[0].url;
   else photoURL = "/01_green_person_grad@3x.png";
 
