@@ -24,6 +24,7 @@ export default function PaNavbarAdmin(props) {
   useEffect(() => {
     Admin.nameReturn(props.email, "firstname").then((data) => {
       setUserName(data);
+      //console.log(props.email);
     });
   })
   
@@ -43,7 +44,7 @@ export default function PaNavbarAdmin(props) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link
-            href="/admin/admin-dashboard"
+            href="/"
             activeclassname="active"
             className={styles.navLink}
           >
