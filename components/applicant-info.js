@@ -5,11 +5,20 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSwr from "swr";
 import Loading from "../components/loading";
-import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Dropdown,
+  DropdownButton,
+  Button,
+} from "react-bootstrap";
 import { Stepper, Step } from "react-form-stepper";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import AdminApplicationModal from "../components/admin-application-modal";
+import { BsArrowLeft } from "react-icons/bs";
+import Admin from "../pages/api/utils/Admin";
 
 // fetcher: Defines the structure of data being received from Airtable via SWR
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -18,10 +27,14 @@ var applicationStage;
 // photoURL: Stores the url for an applicants profile picture. Defaults to a stock image
 var photoURL = "/01_green_person_grad@3x.png";
 
-// DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process.
+/*
+DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process. 
+*/
 export default function DisplayApplicantInfo() {
   // keeps track of state of the modal dialog box
   const [modalShow, setModalShow] = React.useState(false);
+  const [rejectClicked, setRejectClicked] = React.useState(false);
+  const [disableButton, setDisableButton] = React.useState(false);
   const router = useRouter();
   const studentId = router.query.id;
   const { data, error } = useSwr(`/api/applicant-info/${studentId}`, fetcher);
@@ -95,35 +108,53 @@ export default function DisplayApplicantInfo() {
         break;
       case "accepted":
         buttonText = "Applicant has been accepted.";
+        setDisableButton(true);
         break;
       case "rejected":
         buttonText = "Applicant has been rejected.";
+        setDisableButton(true);
         break;
       case "appealing":
         buttonText = "Applicant is appealing.";
+        menuText = "Accept applicant";
+        setDisableButton(false);
         break;
       default:
     }
     return (
       <>
-        <DropdownButton id="dropdown-basic-button" title={buttonText}>
-          <Dropdown.Item onClick={() => setModalShow(true)}>
+        <DropdownButton
+          id="dropdown-basic-button"
+          title={buttonText}
+          disabled={disableButton}
+        >
+          <Dropdown.Item
+            onClick={() => {
+              setModalShow(true);
+            }}
+          >
             {menuText}
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => setModalShow(true)}>
+          <Dropdown.Item
+            onClick={() => {
+              setRejectClicked(true);
+              setModalShow(true);
+            }}
+          >
             Reject Application
           </Dropdown.Item>
         </DropdownButton>
         <AdminApplicationModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          id={data.fields.id}
           name={data.fields.name}
           status={data.fields.applicationStatus.toString()}
+          rejectclicked={rejectClicked}
         />
       </>
     );
   };
-
   return (
     <>
       <Container>
@@ -163,6 +194,15 @@ export default function DisplayApplicantInfo() {
                 <b>in Airtable here.</b>
               </a>
             </p>
+            <Button
+              variant="warning"
+              onClick={() => {
+                router.push("/");
+                close();
+              }}
+            >
+              <BsArrowLeft />
+            </Button>
           </Col>
           <Col>
             <StatusButton />

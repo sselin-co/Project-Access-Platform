@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { signOut } from 'next-auth/client'
+import { signOut } from "next-auth/client";
 import styles from "../styles/Home.module.css";
 
 // I know this is in __app.js as a global stylesheet. However, removing this line will center the PA logo for some reason.
@@ -16,7 +16,7 @@ import {
   Row,
 } from "react-bootstrap";
 import Image from "next/image";
-import Admin from '../pages/api/utils/Admin';
+import Admin from "../pages/api/utils/Admin";
 
 export default function PaNavbarAdmin(props) {
   const [username, setUserName] = useState("");
@@ -25,8 +25,7 @@ export default function PaNavbarAdmin(props) {
     Admin.nameReturn(props.email, "firstname").then((data) => {
       setUserName(data);
     });
-  })
-  
+  });
 
   return (
     <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
@@ -43,7 +42,7 @@ export default function PaNavbarAdmin(props) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link
-            href="/admin/admin-dashboard"
+            href="/"
             activeclassname="active"
             className={styles.navLink}
           >
