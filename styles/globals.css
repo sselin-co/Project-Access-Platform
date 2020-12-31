@@ -1,3 +1,7 @@
+html {
+  overflow-y: scroll;
+}
+
 html,
 body {
   padding: 0;
@@ -16,5 +20,6 @@ a {
 }
 
 p {
-  color: #2A3038;
+  color: #2a3038;
+  overflow-wrap: break-word;
 }

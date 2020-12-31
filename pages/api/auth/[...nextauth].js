@@ -14,8 +14,8 @@ const options = {
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: {  label: "Password", type: "password" }
+        email: { label: "Email", type: "email" },
+        password: {  label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         let user;
