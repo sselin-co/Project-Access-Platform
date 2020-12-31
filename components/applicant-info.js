@@ -5,11 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSwr from "swr";
 import Loading from "../components/loading";
-import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Dropdown,
+  DropdownButton,
+  Button,
+} from "react-bootstrap";
 import { Stepper, Step } from "react-form-stepper";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import AdminApplicationModal from "../components/admin-application-modal";
+import { BsArrowLeft } from "react-icons/bs";
 
 // fetcher: Defines the structure of data being received from Airtable via SWR
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -163,6 +171,9 @@ export default function DisplayApplicantInfo() {
                 <b>in Airtable here.</b>
               </a>
             </p>
+            <Button variant="warning" onClick={router.back}>
+              <BsArrowLeft />
+            </Button>
           </Col>
           <Col>
             <StatusButton />
