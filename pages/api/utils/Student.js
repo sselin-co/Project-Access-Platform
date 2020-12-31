@@ -4,12 +4,11 @@ const base = new Airtable({apiKey:process.env.AIRTABLE_API_KEY}).base(process.en
 
 class Student {
     static async signUp(email, firstname, lastname, password){
-      return base('Application').create({
+      return base('Student').create({
         "email": email,
         "first_name": firstname,
         "last_name": lastname,
         "password": password,
-        "status": "non-applicant"
       }).then((student) => {
         console.log(`Account created successfully for ${student.getId()}`);
         return {id: student.getId(), email: student.get("email")};
@@ -21,7 +20,7 @@ class Student {
     }
 
     static async checkAuthentication(email, password){
-      let records = await base('Application').select({
+      let records = await base('Student').select({
         filterByFormula: `email = '${email}'`,
         fields: ["email", "password"]
       }).firstPage(); 
@@ -37,7 +36,7 @@ class Student {
         fields: ["status", "email"]
       }).firstPage(); 
       //console.log("records", records);
-      if (records.length === 0) {console.log("email not in student database"); throw `You're not logged in as a student`;}
+      if (records.length === 0) {console.log("not an applicant"); return "non-applicant";}
       console.log('Retrieved application status for', records[0].get("email"));
       return records[0].get("status");
     }
