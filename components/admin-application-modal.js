@@ -60,6 +60,15 @@ export default function AdminApplicationModal(props) {
             <Message />
           </Col>
         </Row>
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <Button variant="danger">Cancel</Button>
+          </Col>
+          <Col />
+          <Col className="d-flex justify-content-center">
+            <Button variant="success">Confirm</Button>
+          </Col>
+        </Row>
       </Modal.Body>
     </Modal>
   );
