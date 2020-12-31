@@ -21,7 +21,7 @@ export default function SignUpModal(props) {
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
   const [invalid, setInvalid] = useState(false);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -32,7 +32,7 @@ export default function SignUpModal(props) {
     }
     else{
     setInvalid(false);
-      
+      setShow(true);
       Student.signUp(emailAddress, fname, lname, password);
     }
     setValidated(true);
@@ -102,7 +102,7 @@ export default function SignUpModal(props) {
             <Col>
           {!invalid && show &&
           <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                <p>All good! You can <a href="./api/auth/signin/Credentials">log in</a> now</p>
+            <p>All good! You can <a href="./api/auth/signin/Credentials">log in</a> now</p>
           </Alert>}
             </Col>
           </Form.Row>
