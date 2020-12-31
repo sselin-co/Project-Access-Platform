@@ -31,14 +31,14 @@ class Student {
       }
     }
 
-  static async nameReturn(email) {
+  static async nameReturn(email, col) {
     let records = await base('Application').select({
       filterByFormula: `email = '${email}'`,
-      fields: ["email", "first_name"]
+      fields: ["email", col]
     }).firstPage();
     if (records.length === 0) { console.log("email does not exist"); return false; }
     else {
-      return records[0].get("first_name");
+      return records[0].get(col);
     }
   }
 

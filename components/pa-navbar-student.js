@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signOut } from 'next-auth/client'
 import styles from "../styles/Home.module.css";
 
@@ -12,6 +12,7 @@ import {
     FormControl,
     Button,
     Dropdown,
+    DropdownButton
 } from "react-bootstrap";
 import Image from "next/image";
 import Student from '../pages/api/utils/Student';
@@ -19,10 +20,18 @@ import Student from '../pages/api/utils/Student';
 
 export default function PaNavbarStudent(props) {
     const [username, setUserName] = useState("");
+    const [uid, setUid] = useState("");
    
-    Student.nameReturn(props.email).then((data) => {
-        setUserName(data);
-    });
+    useEffect(() => {
+        Student.nameReturn(props.email, "first_name").then((data) => {
+            setUserName(data);
+        });
+
+        Student.nameReturn(props.email, "id").then((data) => {
+            setUid(data);
+        });
+    })
+   
 
     return (
         <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
@@ -38,8 +47,8 @@ export default function PaNavbarStudent(props) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
-                    <Nav.Link href="#home" className={styles.navLink}>
-                        Start
+                    <Nav.Link href="https://airtable.com/shrp41zGmcAh0VI2T" className={styles.navLink}>
+                        Start Application
                     </Nav.Link>
                     <Nav.Link href="#link" className={styles.navLink}>
                         Bootcamp
@@ -55,13 +64,25 @@ export default function PaNavbarStudent(props) {
                     >
                         Log Out
                     </Button>
-                    <Button
+                    <Dropdown>
+                        <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                            {username}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            {/* <Dropdown.Item href={"/student/applicant-info/[id]"}
+                                as={`/student/applicant-info/${uid}`}>Action</Dropdown.Item> */}
+                            <Dropdown.Item href={`/admin/applicant-info/${uid}`}>Another action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    {/* <Button
                         //onClick={nameDisplay}
                         variant="warning"
                         className={styles.navbarButton}
                     >
                         {username}
-                    </Button>
+                    </Button> */}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

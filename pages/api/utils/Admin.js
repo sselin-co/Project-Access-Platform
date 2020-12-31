@@ -30,14 +30,14 @@ class Admin {
     })
   }
 
-  static async nameReturn(email) {
+  static async nameReturn(email, col) {
     let records = await base('Admin').select({
       filterByFormula: `email = '${email}'`,
-      fields: ["email", "firstname"]
+      fields: ["email", col]
     }).firstPage();
     if (records.length === 0) { console.log("email does not exist"); return false; }
     else {
-      return records[0].get("firstname");
+      return records[0].get(col);
     }
   }
 }

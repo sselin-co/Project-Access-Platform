@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signOut } from 'next-auth/client'
 import styles from "../styles/Home.module.css";
 
@@ -21,10 +21,12 @@ import Admin from '../pages/api/utils/Admin';
 export default function PaNavbarAdmin(props) {
   const [username, setUserName] = useState("");
 
-  Admin.nameReturn(props.email).then((data) => {
-    setUserName(data);
-    
-  });
+  useEffect(() => {
+    Admin.nameReturn(props.email, "firstname").then((data) => {
+      setUserName(data);
+    });
+  })
+  
 
   return (
     <Navbar expand="lg" className={styles.navbar} variant="dark" sticky="top">
