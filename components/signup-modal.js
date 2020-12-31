@@ -22,18 +22,6 @@ export default function SignUpModal(props) {
   const [validated, setValidated] = useState(false);
   const [show, setShow] = useState(true);
 
-  // const validate = ({ firstName, lastName }) => {
-  //   return {
-  //     firstName: !firstName || firstName.trim().length === 0
-  //       ? "First Name is required"
-  //       : false,
-  //     lastName:
-  //       !lastName || lastName.trim().length === 0
-  //         ? "Last Name is required"
-  //         : false
-  //   };
-  // };
-
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -46,7 +34,6 @@ export default function SignUpModal(props) {
       event.stopPropagation();
       Student.signUp(emailAddress, fname, lname, password);
     }
-    //console.log(validated);
   };
 
   return (
