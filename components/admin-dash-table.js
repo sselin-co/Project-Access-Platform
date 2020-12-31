@@ -149,7 +149,10 @@ export default function AdminDashTable() {
 
   // Filters out non applicants
   function filterAll(record) {
-    return record.fields.applicationStatus != "non-applicant";
+    return (
+      record.fields.applicationStatus != "non-applicant" &&
+      record.fields.applicationStatus != null
+    );
   }
 
   // Filters out anyone who isn't an ongoing applicant
@@ -158,7 +161,8 @@ export default function AdminDashTable() {
       record.fields.applicationStatus != "rejected" &&
       record.fields.applicationStatus != "non-applicant" &&
       record.fields.applicationStatus != "appealing" &&
-      record.fields.applicationStatus != "accepted"
+      record.fields.applicationStatus != "accepted" &&
+      record.fields.applicationStatus != null
     );
   }
 
