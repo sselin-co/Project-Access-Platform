@@ -4,23 +4,22 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
 );
 
 class Student {
-  static async signUp(email, firstname, lastname, password) {
-    return base("Application").create(
-      {
-        email: email,
-        firstname: firstname,
-        lastname: lastname,
-        password: password,
-      },
-      function (err, record) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log(`Account created for`, record.get("email"));
-      }
-    );
-  }
+    static async signUp(email, firstname, lastname, password){
+      return base('Application').create({
+        "email": email,
+        "first_name": firstname,
+        "last_name": lastname,
+        "password": password,
+        "status": "non-applicant"
+      }).then((student) => {
+        console.log(`Account created successfully for ${student.getId()}`);
+        return {id: student.getId(), email: student.get("email")};
+      }).catch((err) =>{
+        console.log(err);
+        throw err;
+      });
+
+    }
 
   static async checkAuthentication(email, password) {
     let records = await base("Application")
@@ -40,9 +39,19 @@ class Student {
     }
   }
 
-  static async getStatus(email) {
-    let records = await base("Application")
-      .select({
+  static async nameReturn(email, col) {
+    let records = await base('Application').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["email", col]
+    }).firstPage();
+    if (records.length === 0) { console.log("email does not exist"); return false; }
+    else {
+      return records[0].get(col);
+    }
+  }
+
+    static async getStatus(email){
+      let records = await base('Application').select({
         filterByFormula: `email = '${email}'`,
         fields: ["status", "email"],
       })
