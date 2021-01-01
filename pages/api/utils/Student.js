@@ -57,6 +57,28 @@ class Student {
     return records[0].get("status");
   }
 
+  static async getGradeLevel(email){
+    let records = await base('Application').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["education_level", "email"]
+    }).firstPage(); 
+
+    if (records.length === 0) {console.log("not an applicant"); return "non-applicant";}
+    console.log(records[0].get("email"), "is a", records[0].get("education_level")[0]);
+    return records[0].get("education_level")[0];
+  }
+
+  static async getApplicationId(email){
+    let records = await base('Application').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["id", "email"]
+    }).firstPage(); 
+
+    if (records.length === 0) {console.log("not an applicant"); return "non-applicant";}
+    console.log("app id retrieved for", records[0].get("email"));
+    return records[0].get("id");
+  }
+
   static async allAccepted(){
     const records = await base('Application').select({
       view: 'accepted'
@@ -76,6 +98,135 @@ class Student {
     )
 
     return acceptedStudents;
+  }
+
+  static async oneAccepted(id){
+    const record = await base('Application').find(id);
+    const student = {
+      id: record.getId(),
+      email: record.get("email"),
+      first_name: record.get("first_name"),
+      last_name: record.get("last_name"),
+      education_level: record.get("education_level"),
+      last_assignment_submitted: record.get("last_assignment_submitted"), 
+      module_1: record.get("module_1"),
+      module_2: record.get("module_2"),
+      module_3: record.get("module_3"),
+      module_4: record.get("module_4"),
+      module_5: record.get("module_5"),
+      module_6: record.get("module_6"),
+      feedback_1: record.get("feedback_1"),
+      feedback_2: record.get("feedback_2"),
+      feedback_3: record.get("feedback_3"),
+      feedback_4: record.get("feedback_4"),
+      feedback_5: record.get("feedback_5"),
+      feedback_6: record.get("feedback_6"),
+    };
+    console.log(student);
+    return student;
+  }
+
+  static async submitAssignment(student_id, module_number, submission){
+    switch(module_number){
+      case 1:
+        base('Application').update([
+        {
+          id: `${student_id}`,
+          fields: {
+            module_1: `${submission}`
+          }
+        }
+        ], function(err, records){
+          if (err){
+            console.error(err);
+            return;
+          }
+        console.log('submission completed for', module_number);
+        })
+        break;
+      case 2:
+        base('Application').update([
+        {
+          id: `${student_id}`,
+          fields: {
+            module_2: `${submission}`
+          }
+        }
+        ], function(err, records){
+          if (err){
+            console.error(err);
+            return;
+          }
+        console.log('submission completed for', module_number);
+        })
+        break;
+      case 3:
+        base('Application').update([
+        {
+          id: `${student_id}`,
+          fields: {
+            module_3: `${submission}`
+          }
+        }
+        ], function(err, records){
+          if (err){
+            console.error(err);
+            return;
+          }
+        console.log('submission completed for', module_number);
+        })
+        break;
+      case 4:
+        base('Application').update([
+        {
+          id: `${student_id}`,
+          fields: {
+            module_4: `${submission}`
+          }
+        }
+        ], function(err, records){
+          if (err){
+            console.error(err);
+            return;
+          }
+        console.log('submission completed for', module_number);
+        })
+        break;
+      case 5:
+        base('Application').update([
+        {
+          id: `${student_id}`,
+          fields: {
+            module_5: `${submission}`
+          }
+        }
+        ], function(err, records){
+          if (err){
+            console.error(err);
+            return;
+          }
+        console.log('submission completed for', module_number);
+        })
+        break;
+      case 6:
+        base('Application').update([
+        {
+          id: `${student_id}`,
+          fields: {
+            module_6: `${submission}`
+          }
+        }
+        ], function(err, records){
+          if (err){
+            console.error(err);
+            return;
+          }
+        console.log('submission completed for', module_number);
+        })
+        break;
+      default:
+        throw "invalid module number";
+    }
   }
 }
 module.exports = Student;

@@ -1,5 +1,4 @@
 import { getSession } from 'next-auth/client'
-import Course from "../utils/Admin.js"
 import Student from "../utils/Student.js"
 
 /**
