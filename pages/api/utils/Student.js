@@ -57,6 +57,17 @@ class Student {
     return records[0].get("status");
   }
 
+  static async getGradeLevel(email){
+    let records = await base('Application').select({
+      filterByFormula: `email = '${email}'`,
+      fields: ["education_level", "email"]
+    }).firstPage(); 
+
+    if (records.length === 0) {console.log("not an applicant"); return "non-applicant";}
+    console.log(records[0].get("email"), "is a", records[0].get("education_level")[0]);
+    return records[0].get("education_level")[0];
+  }
+
   static async allAccepted(){
     const records = await base('Application').select({
       view: 'accepted'
