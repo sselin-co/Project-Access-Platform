@@ -3,14 +3,14 @@ import Head from "next/head";
 import { useSession } from 'next-auth/client'
 import styles from "../../../styles/Home.module.css";
 import PaNavbarStudent from "../../../components/pa-navbar-student.js";
-import DisplayApplicantInfo from "../../../components/applicant-info";
+import DisplayApplicationInfo from "../../../components/application-info";
 
 /*
 ApplicationInfo: dynamically routed page for applicant information. 
 */
 
 export default function ApplicantInfo() {
-  const [session, loading] = useSession();
+  //const [session, loading] = useSession();
   // const [username, setUserName] = useState("");
 
   // useEffect(() => {
@@ -27,10 +27,10 @@ export default function ApplicantInfo() {
         <link rel="icon" href="/logo_key_colour_highres.ico" />
       </Head>
 
-      <PaNavbarStudent email={session.user.email}></PaNavbarStudent>
+      {/* <PaNavbarStudent email={session.user.email}></PaNavbarStudent> */}
 
       <main className={styles.main}>
-        <DisplayApplicantInfo></DisplayApplicantInfo>
+        <DisplayApplicationInfo></DisplayApplicationInfo>
       </main>
 
       <footer className={styles.footer}></footer>

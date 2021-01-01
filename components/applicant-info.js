@@ -27,19 +27,18 @@ var applicationStage;
 // photoURL: Stores the url for an applicants profile picture. Defaults to a stock image
 var photoURL = "/01_green_person_grad@3x.png";
 
-/*
-DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process. 
-*/
-export default function DisplayApplicantInfo() {
+// DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process.
+export default function DisplayApplicantInfo(props) {
   // keeps track of state of the modal dialog box
   const [modalShow, setModalShow] = React.useState(false);
   const [rejectClicked, setRejectClicked] = React.useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
   const router = useRouter();
-  const studentId = router.query.id;
+  const studentId = router.query.id ? router.query.id : props.id;
   const { data, error } = useSwr(`/api/applicant-info/${studentId}`, fetcher);
   if (error) return <div>Failed to load applicant information</div>;
   if (!data) return <Loading />;
+  console.log(data);
 
   if (data.fields.photo != null) photoURL = data.fields.photo[0].url;
   else photoURL = "/01_green_person_grad@3x.png";

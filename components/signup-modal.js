@@ -20,20 +20,22 @@ export default function SignUpModal(props) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
-  const [show, setShow] = useState(true);
+  const [invalid, setInvalid] = useState(false);
+  const [show, setShow] = useState(false);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      setInvalid(true);
     }
     else{
-    setValidated(true);
-      event.preventDefault();
-      event.stopPropagation();
+    setInvalid(false);
+      setShow(true);
       Student.signUp(emailAddress, fname, lname, password);
     }
+    setValidated(true);
   };
 
   return (
@@ -64,7 +66,7 @@ export default function SignUpModal(props) {
               <Form.Label>Last Name</Form.Label>
               <Form.Control pattern="[a-zA-Z]+" required value={lname} onChange={(e) => setLname(e.target.value)} placeholder="Enter last name" />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid first name.
+                Please provide a valid last name.
               </Form.Control.Feedback>
             </Col>
           </Form.Row>
@@ -79,7 +81,7 @@ export default function SignUpModal(props) {
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
-            {!validated && <Form.Text className="text-muted">
+            {!invalid && <Form.Text className="text-muted">
               Minimum 8 characters, at least 1 letter, 1 number and 1 special character
             </Form.Text>}
             <Form.Control.Feedback type="invalid">
@@ -98,9 +100,9 @@ export default function SignUpModal(props) {
           </Button>
             </Col>
             <Col>
-          {validated && show &&
+          {!invalid && show &&
           <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                <p>All good! You can <a href="./api/auth/signin/Credentials">log in</a> now</p>
+            <p>All good! You can <a href="./api/auth/signin/Credentials">log in</a> now</p>
           </Alert>}
             </Col>
           </Form.Row>

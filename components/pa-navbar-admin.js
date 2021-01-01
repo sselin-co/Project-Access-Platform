@@ -24,6 +24,7 @@ export default function PaNavbarAdmin(props) {
   useEffect(() => {
     Admin.nameReturn(props.email, "firstname").then((data) => {
       setUserName(data);
+      //console.log(props.email);
     });
   });
 
