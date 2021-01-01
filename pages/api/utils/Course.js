@@ -2,6 +2,19 @@ const Airtable = require('airtable');
 const base = new Airtable({apiKey:process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE_ID);
 
 class Course {
+  static async getCourse(id){
+    const record = await base('Modules').find(id);
+    const course = {id: record.getId(), 
+      module_number: record.get("module_number"), 
+      title: record.get("title"), 
+      deadline: record.get("deadline"), 
+      content: record.get("content"), 
+      assignment: record.get("assignment"), 
+      level: record.get("level")};
+    console.log(course);
+    return course;
+  }
+
   static async getCourses(level){
     return base('Modules').select({
       view: `${level}`
