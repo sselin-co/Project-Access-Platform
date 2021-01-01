@@ -77,5 +77,31 @@ class Student {
 
     return acceptedStudents;
   }
+
+  static async oneAccepted(id){
+    const record = await base('Application').find(id);
+    const student = {
+      id: record.getId(),
+      email: record.get("email"),
+      first_name: record.get("first_name"),
+      last_name: record.get("last_name"),
+      education_level: record.get("education_level"),
+      last_assignment_submitted: record.get("last_assignment_submitted"), 
+      module_1: record.get("module_1"),
+      module_2: record.get("module_2"),
+      module_3: record.get("module_3"),
+      module_4: record.get("module_4"),
+      module_5: record.get("module_5"),
+      module_6: record.get("module_6"),
+      feedback_1: record.get("feedback_1"),
+      feedback_2: record.get("feedback_2"),
+      feedback_3: record.get("feedback_3"),
+      feedback_4: record.get("feedback_4"),
+      feedback_5: record.get("feedback_5"),
+      feedback_6: record.get("feedback_6"),
+    };
+    console.log(student);
+    return student;
+  }
 }
 module.exports = Student;
