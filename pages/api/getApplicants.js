@@ -1,8 +1,8 @@
-import { table, minifyDashboardRecords } from "./utils/Airtable";
+import { applicationTable, minifyDashboardRecords } from "./utils/Airtable";
 
 export default async function handler(req, res) {
   try {
-    const records = await table.select({}).firstPage();
+    const records = await applicationTable.select({}).firstPage();
     const minifiedRecords = minifyDashboardRecords(records);
     res.statusCode = 200;
     res.json(minifiedRecords);

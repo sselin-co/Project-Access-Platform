@@ -1,9 +1,9 @@
-import { table } from "./utils/Airtable";
+import { applicationTable } from "./utils/Airtable";
 
 export default async function handler(req, res) {
   const { id } = req.body;
   try {
-    const deletedRecords = await table.destroy([id]);
+    const deletedRecords = await applicationTable.destroy([id]);
     res.statusCode = 200;
     res.json(deletedRecords[0]);
   } catch (err) {

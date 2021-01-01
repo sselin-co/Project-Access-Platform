@@ -1,9 +1,9 @@
-import { table } from "./utils/Airtable";
+import { applicationTable } from "./utils/Airtable";
 
 export default async function handler(req, res) {
   try {
     const { id, fields } = req.body;
-    const updatedRecord = await table.update([{ id, fields }]);
+    const updatedRecord = await applicationTable.update([{ id, fields }]);
     res.statusCode = 200;
     res.json(updatedRecord);
   } catch (err) {
