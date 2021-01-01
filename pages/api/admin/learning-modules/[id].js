@@ -4,7 +4,7 @@ import Course from "../../utils/Course.js"
 /**
  * (admin only) update information about a course by its id
  * 
- * @name PUT /api/admin/learning-modules?level=grad
+ * @name PUT api/admin/learning-modules/{courseid}
  */
 export default async (req, res) => {
   const session = await getSession({ req })
