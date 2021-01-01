@@ -253,7 +253,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -281,7 +284,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -309,7 +315,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -337,7 +346,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
