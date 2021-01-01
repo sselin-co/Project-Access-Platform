@@ -7,7 +7,9 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE_ID
 );
 
-const table = base(process.env.AIRTABLE_TABLE_NAME);
+const applicationTable = base(process.env.AIRTABLE_TABLE_NAME);
+// TODO: make .env variable
+const modulesTable = base("Modules");
 
 const getMinifiedDashboardRecord = (record) => {
   return {
@@ -40,7 +42,8 @@ const getMinifiedApplicantRecord = (record) => {
 
 // Don't forget to export any new utility functions you write (mainly for Shaya).
 export {
-  table,
+  applicationTable as applicationTable,
+  modulesTable as modulesTable,
   getMinifiedDashboardRecord,
   minifyDashboardRecords,
   getMinifiedApplicantRecord,
