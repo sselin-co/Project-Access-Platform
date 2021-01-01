@@ -1,9 +1,9 @@
 import Head from "next/head";
-import styles from "../../styles/Home.module.css";
-import PaNavbarAdmin from "../../components/pa-navbar-admin.js";
+import styles from "../styles/Home.module.css";
+import PaNavbarAdmin from "./pa-navbar-admin.js";
 import Image from "next/image";
 import Link from "next/link";
-import AdminDashTable from "../../components/admin-dash-table.js";
+import AdminDashTable from "./admin-dash-table.js";
 
 export default function AdminDashboard(props) {
   return (
