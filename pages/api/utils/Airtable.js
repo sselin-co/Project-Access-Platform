@@ -7,8 +7,7 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE_ID
 );
 
-const applicationTable = base(process.env.AIRTABLE_TABLE_NAME);
-// TODO: make .env variable
+const applicationTable = base("Application");
 const modulesTable = base("Modules");
 
 const getMinifiedDashboardRecord = (record) => {
