@@ -56,5 +56,26 @@ class Student {
     console.log('Retrieved application status for', records[0].get("email"));
     return records[0].get("status");
   }
+
+  static async allAccepted(){
+    const records = await base('Application').select({
+      view: 'accepted'
+    }).firstPage();
+
+    const acceptedStudents = records.map(record => 
+      {
+        return {
+          id: record.getId(),
+          email: record.get("email"),
+          first_name: record.get("first_name"),
+          last_name: record.get("last_name"),
+          education_level: record.get("education_level"),
+          last_assignment_submitted: record.get("last_assignment_submitted"),
+        };
+      }
+    )
+
+    return acceptedStudents;
+  }
 }
 module.exports = Student;
