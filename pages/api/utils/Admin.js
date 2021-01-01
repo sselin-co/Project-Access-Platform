@@ -56,5 +56,126 @@ class Admin {
       return records[0].get(col);
     }
   }
+
+  static async giveFeedback(student_id, module_number, feedback){
+    switch(module_number){
+      case 1:
+        await base("Application").update(
+          [
+            {
+              id: `${student_id}`,
+              fields: {
+                feedback_1: `${feedback}`,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error("Error in Admin.js: " + err);
+              return;
+            }
+            console.log("Succesful update for " + records[0].get("email"));
+          }
+        );
+        break;
+      case 2:
+        await base("Application").update(
+          [
+            {
+              id: `${student_id}`,
+              fields: {
+                feedback_2: `${feedback}`,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error("Error in Admin.js: " + err);
+              return;
+            }
+            console.log("Succesful update for " + records[0].get("email"));
+          }
+        );
+        break;
+      case 3:
+        await base("Application").update(
+          [
+            {
+              id: `${student_id}`,
+              fields: {
+                feedback_3: `${feedback}`,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error("Error in Admin.js: " + err);
+              return;
+            }
+            console.log("Succesful update for " + records[0].get("email"));
+          }
+        );
+        break;
+      case 4:
+        await base("Application").update(
+          [
+            {
+              id: `${student_id}`,
+              fields: {
+                feedback_4: `${feedback}`,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error("Error in Admin.js: " + err);
+              return;
+            }
+            console.log("Succesful update for " + records[0].get("email"));
+          }
+        );
+        break;
+      case 5:
+        await base("Application").update(
+          [
+            {
+              id: `${student_id}`,
+              fields: {
+                feedback_5: `${feedback}`,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error("Error in Admin.js: " + err);
+              return;
+            }
+            console.log("Succesful update for " + records[0].get("email"));
+          }
+        );
+        break;
+      case 6:
+        await base("Application").update(
+          [
+            {
+              id: `${student_id}`,
+              fields: {
+                feedback_6: `${feedback}`,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error("Error in Admin.js: " + err);
+              return;
+            }
+            console.log("Succesful update for " + records[0].get("email"));
+          }
+        );
+        break;
+      default:
+        throw "invalid module number"
+    }
+  }
 }
 module.exports = Admin;

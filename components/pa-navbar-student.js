@@ -14,22 +14,40 @@ import {
     Dropdown,
     DropdownButton
 } from "react-bootstrap";
+import useSwr from "swr";
 import Image from "next/image";
 import Student from '../pages/api/utils/Student';
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function PaNavbarStudent(props) {
     const [username, setUserName] = useState("");
     const [uid, setUid] = useState("");
+    //const [view, setView] = useState("");
+    const [nonApp, setNonApp] = useState("");
+    const { data, error } = useSwr(`/api/student/status`, fetcher);
    
     useEffect(() => {
+        if (data) {
+            setNonApp(data.status == "non-applicant");
+        }
+
+        if (nonApp) {
+            Student.nameReturn(props.email, "id").then((data) => {
+                setUid(data);
+            });
+        }
+
+        else {
+            Student.appReturn(props.email, "id").then((data) => {
+                setUid(data);
+            });
+        }
+
         Student.nameReturn(props.email, "first_name").then((data) => {
             setUserName(data);
         });
-
-        Student.nameReturn(props.email, "id").then((data) => {
-            setUid(data);
-        });
+        
     })
    
 
@@ -47,9 +65,9 @@ export default function PaNavbarStudent(props) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
-                    <Nav.Link href="https://airtable.com/shrp41zGmcAh0VI2T" className={styles.navLink}>
+                    {nonApp && <Nav.Link target="_blank" href="https://airtable.com/shrp41zGmcAh0VI2T" className={styles.navLink}>
                         Start Application
-                    </Nav.Link>
+                    </Nav.Link>}
                     <Nav.Link href="#link" className={styles.navLink}>
                         Bootcamp
                     </Nav.Link>
@@ -64,7 +82,7 @@ export default function PaNavbarStudent(props) {
                     >
                         Log Out
                     </Button>
-                    <Dropdown>
+                    {!nonApp && <Dropdown>
                         <Dropdown.Toggle variant="warning" id="dropdown-basic">
                             {username}
                         </Dropdown.Toggle>
@@ -72,17 +90,17 @@ export default function PaNavbarStudent(props) {
                         <Dropdown.Menu>
                             {/* <Dropdown.Item href={"/student/applicant-info/[id]"}
                                 as={`/student/applicant-info/${uid}`}>Action</Dropdown.Item> */}
-                            <Dropdown.Item href={`/admin/applicant-info/${uid}`}>Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            <Dropdown.Item href={`/student/applicant-info/${uid}`}>My Application</Dropdown.Item>
+                            {/* <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
                         </Dropdown.Menu>
-                    </Dropdown>
-                    {/* <Button
+                    </Dropdown>}
+                    {nonApp && <Button
                         //onClick={nameDisplay}
                         variant="warning"
                         className={styles.navbarButton}
                     >
                         {username}
-                    </Button> */}
+                    </Button> }
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

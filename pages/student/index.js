@@ -12,14 +12,14 @@ import DisplayApplicantInfo from "../../components/applicant-info";
 
 export default function StudentHome(props) {
     //const { data, error } = useSwr(`/api/applicant-info/${uid}`, fetcher);
-    const [uid, setUid] = useState("");
+    // const [uid, setUid] = useState("");
 
-    useEffect(() => {
-        Student.nameReturn(props.email, "id").then((data) => {
-            setUid(data);
-        });
-        //console.log(uid);
-    }) 
+    // useEffect(() => {
+    //     Student.nameReturn(props.email, "id").then((data) => {
+    //         setUid(data);
+    //     });
+    //     //console.log(uid);
+    // }) 
 
     // if (error) return <div>Failed to load applicant information</div>;
     // if (!data) return <Loading />;
