@@ -92,19 +92,19 @@ export default function DisplayApplicantInfo() {
     switch (data.fields.applicationStatus.toString()) {
       case "written app submitted":
         buttonText = "Written application reviewed?";
-        menuText = "Approve Application";
+        menuText = "Approve Written Application";
         break;
       case "written app passed":
         buttonText = "Ready to schedule a consultation?";
-        menuText = "Invite to consultation";
+        menuText = "Invite to Consultation";
         break;
       case "consultation scheduled":
         buttonText = "Consultation completed?";
-        menuText = "Begin consultation review";
+        menuText = "Begin Consultation Review";
         break;
       case "consultation in review":
         buttonText = "Has an acceptance decision been made?";
-        menuText = "Accept applicant";
+        menuText = "Accept Applicant";
         break;
       case "accepted":
         buttonText = "Applicant has been accepted.";
@@ -116,7 +116,7 @@ export default function DisplayApplicantInfo() {
         break;
       case "appealing":
         buttonText = "Applicant is appealing.";
-        menuText = "Accept applicant";
+        menuText = "Accept Applicant";
         setDisableButton(false);
         break;
       default:
@@ -141,7 +141,7 @@ export default function DisplayApplicantInfo() {
               setModalShow(true);
             }}
           >
-            Reject Application
+            Reject Applicant
           </Dropdown.Item>
         </DropdownButton>
         <AdminApplicationModal
@@ -186,6 +186,7 @@ export default function DisplayApplicantInfo() {
               View this applicant's files{" "}
               <a
                 href={
+                  // convert this to a .env variable
                   "https://airtable.com/tblEzSNgUrVlGFG1s/viwkWV3m9d4RH7sq9/" +
                   studentId
                 }
