@@ -23,21 +23,31 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function PaNavbarStudent(props) {
     const [username, setUserName] = useState("");
     const [uid, setUid] = useState("");
+    //const [view, setView] = useState("");
     const [nonApp, setNonApp] = useState("");
     const { data, error } = useSwr(`/api/student/status`, fetcher);
    
     useEffect(() => {
-        Student.nameReturn(props.email, "first_name").then((data) => {
-            setUserName(data);
-        });
-
-        Student.nameReturn(props.email, "id").then((data) => {
-            setUid(data);
-        });
-
         if (data) {
             setNonApp(data.status == "non-applicant");
         }
+
+        if (nonApp) {
+            Student.nameReturn(props.email, "id").then((data) => {
+                setUid(data);
+            });
+        }
+
+        else {
+            Student.appReturn(props.email, "id").then((data) => {
+                setUid(data);
+            });
+        }
+
+        Student.nameReturn(props.email, "first_name").then((data) => {
+            setUserName(data);
+        });
+        
     })
    
 
