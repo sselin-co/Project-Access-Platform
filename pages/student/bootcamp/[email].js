@@ -29,23 +29,23 @@ export default function Bootcamp() {
             <main className={styles.main}>
                 <section id="experience">
 
-                    <div class="row column">
-                        <div class="small-12">
+                    <div className="row column">
+                        <div className="small-12">
                             <h3 className={styles.title}>Program</h3>
-                            <h4 class="text-center tag-line">This is what awaits you at the boot camp</h4>
-                            <p class="text-center tag-line">The exact program varies for each participant, depending on which seminar group you are in and which universities you will be applying to.</p>
+                            <h4 className="text-center tag-line">This is what awaits you at the boot camp</h4>
+                            <p className="text-center tag-line">The exact program varies for each participant, depending on which seminar group you are in and which universities you will be applying to.</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="small-12 medium-4 columns text-center experience-topics">
-                            <i class="fi-laptop"></i>
+                    <div className="row">
+                        <div className="small-12 medium-4 columns text-center experience-topics">
+                            <i className="fi-laptop"></i>
                             <h3>Thursday</h3>
                             <ul>
                                 <li>getting there</li>
                             </ul>
                         </div>
-                        <div class="small-12 medium-4 columns text-center experience-topics">
-                            <i class="fi-database"></i>
+                        <div className="small-12 medium-4 columns text-center experience-topics">
+                            <i className="fi-database"></i>
                             <h3>Friday</h3>
                             <ul>
                                 <li>Get to know the other participants</li>
@@ -57,8 +57,8 @@ export default function Bootcamp() {
 					        </ul>
                             <p>Evening Event</p>
                         </div>
-                        <div class="small-12 medium-4 columns text-center experience-topics">
-                            <i class="fi-star"></i>
+                        <div className="small-12 medium-4 columns text-center experience-topics">
+                            <i className="fi-star"></i>
                             <h3>Saturday</h3>
                             <p>Various seminar contents:</p>
                             <ul>
@@ -74,8 +74,8 @@ export default function Bootcamp() {
                             </ul>
                             <p>Evening Event</p>
                         </div>
-                        <div class="small-12 medium-4 columns text-center experience-topics">
-                            <i class="fi-star"></i>
+                        <div className="small-12 medium-4 columns text-center experience-topics">
+                            <i className="fi-star"></i>
                             <h3>Sunday</h3>
                             <ul>
                                 <li>further seminar contents</li>
