@@ -1,24 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { useSession } from 'next-auth/client'
+import { useRouter } from "next/router";
+import Footer from "../../general/footer";
 import styles from "../../../styles/Home.module.css";
 import PaNavbarStudent from "../../../components/pa-navbar-student.js";
 import DisplayApplicationInfo from "../../../components/application-info";
+import Student from "../../api/utils/Student";
 
 /*
 ApplicationInfo: dynamically routed page for applicant information. 
 */
 
 export default function ApplicantInfo() {
-  //const [session, loading] = useSession();
-  // const [username, setUserName] = useState("");
+  const router = useRouter();
+  const studentId = router.query.id;
+  const [email, setEmail] = useState("");
 
-  // useEffect(() => {
-  //   console.log(session.user.email);
-  //   setUserName(session.user.email);
-    
-  // })
-  //console.log(session);
+  useEffect(() => {
+    Student.appIdReturn(studentId, "email").then((data) => {
+      setEmail(data);
+    })
+  })
 
   return (
     <div className={styles.container}>
@@ -27,13 +29,13 @@ export default function ApplicantInfo() {
         <link rel="icon" href="/logo_key_colour_highres.ico" />
       </Head>
 
-      {/* <PaNavbarStudent email={session.user.email}></PaNavbarStudent> */}
+      <PaNavbarStudent email={email}></PaNavbarStudent>
 
       <main className={styles.main}>
         <DisplayApplicationInfo></DisplayApplicationInfo>
       </main>
 
-      <footer className={styles.footer}></footer>
+      <Footer/>
     </div>
   );
 }
