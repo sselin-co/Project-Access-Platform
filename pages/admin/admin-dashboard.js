@@ -1,8 +1,7 @@
 import Head from "next/head";
 import styles from "../../styles/Home.module.css";
 import PaNavbarAdmin from "../../components/pa-navbar-admin.js";
-import Image from "next/image";
-import Link from "next/link";
+import Footer from "../general/footer";
 import AdminDashTable from "../../components/admin-dash-table.js";
 
 export default function AdminDashboard(props) {
@@ -20,7 +19,7 @@ export default function AdminDashboard(props) {
         <AdminDashTable />
       </main>
 
-      <footer className={styles.footer}></footer>
+      <Footer/>
     </div>
   );
 }
