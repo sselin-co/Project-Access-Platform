@@ -5,6 +5,8 @@ import styles from "../styles/Home.module.css";
 import PaNavbar from "../components/pa-navbar.js";
 import StudentHome from "./student";
 import AdminDashboard from "./admin/admin-dashboard";
+import Footer from "../pages/general/footer";
+
 
 export default function Home() {
   const [session, loading] = useSession();
@@ -25,7 +27,7 @@ export default function Home() {
         <h1 className={styles.title}>Project Access Austria</h1>
       </main>
 
-      <footer className={styles.footer}></footer>
+      <Footer/>
     </div>}
     </>
   );
