@@ -57,6 +57,17 @@ class Student {
     }
   }
 
+  static async appIdReturn(id, col) {
+    let records = await base('Application').select({
+      filterByFormula: `id = '${id}'`,
+      fields: ["id", col]
+    }).firstPage();
+    if (records.length === 0) { console.log("id does not exist"); return false; }
+    else {
+      return records[0].get(col);
+    }
+  }
+
   static async getStatus(email){
     let records = await base('Application').select({
       filterByFormula: `email = '${email}'`,
