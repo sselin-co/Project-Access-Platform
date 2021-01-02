@@ -46,10 +46,12 @@
   text-decoration: underline;
 }
 
+
+
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  /* font-size: 4rem; */
   color: #fbac2b;
   background-color: #2c343c;
   padding: 10px 10px 15px 10px;
