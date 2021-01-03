@@ -21,6 +21,16 @@
   align-items: center;
 }
 
+/* .carousel {
+  border-left: 1px solid #db4f4f;
+  margin: auto;
+} */
+
+.carousel1 {
+  border-left: 1px solid #26a821;
+  background-color: #db4f4f;
+}
+
 .footer {
   width: 100%;
   height: 100px;
