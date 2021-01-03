@@ -68,7 +68,7 @@ export default function Home() {
 
           
       </main>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/wQf4C9AL1k0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/wQf4C9AL1k0" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
         <div className="col work-col">
           <div className="small-12 medium-5 medium-pull-7 columns">

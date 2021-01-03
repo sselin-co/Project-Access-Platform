@@ -19,12 +19,12 @@ import Image from "next/image";
 import Student from '../pages/api/utils/Student';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-
+//signOut({ callbackUrl: signOut ? 'http://localhost:3000' : '' });
 
 export default function PaNavbarStudent(props) {
     const [username, setUserName] = useState("");
     const [uid, setUid] = useState("");
-    //const [view, setView] = useState("");
+    const [accepted, setAccepted] = useState("");
     const [nonApp, setNonApp] = useState("");
     const ref = `/student/bootcamp/${props.email}`;
     const { data, error } = useSwr(`/api/student/status`, fetcher);
@@ -49,6 +49,12 @@ export default function PaNavbarStudent(props) {
         Student.nameReturn(props.email, "first_name").then((data) => {
             setUserName(data);
         });
+
+        if(uid){
+        Student.oneAccepted(uid).then((data) => {
+            setAccepted(data);
+            //console.log(accepted);
+        })}
         
     })
    
@@ -72,6 +78,9 @@ export default function PaNavbarStudent(props) {
                     </Nav.Link>
                     {nonApp && <Nav.Link target="_blank" href="https://airtable.com/shrp41zGmcAh0VI2T" className={styles.navLink}>
                         Start Application
+                    </Nav.Link>}
+                    {accepted && <Nav.Link href="" className={styles.navLink}>
+                        Pre-Bootcamp Course
                     </Nav.Link>}
                     <Nav.Link href={ref} className={styles.navLink}>
                         Bootcamp
