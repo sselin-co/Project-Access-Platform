@@ -26,7 +26,7 @@ export default function StudentHome(props) {
         src="https://www.youtube.com/embed/wQf4C9AL1k0"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullccreen
+        allowFullScreen
       ></iframe>
 
       <div className="col work-col">

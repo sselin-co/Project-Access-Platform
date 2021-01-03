@@ -12,7 +12,7 @@ export default function HomeCarousel() {
             className={"d-block w-100 h-100"}
             width={100}
             height={100}
-            src="/1500x500.jpg"
+            src="/1606741747667.jpg"
             alt="First slide"
           />
         </Carousel.Item>
@@ -39,7 +39,7 @@ export default function HomeCarousel() {
             className={"d-block w-100 h-100"}
             width={100}
             height={100}
-            src="/1606741747667.jpg"
+            src="/1500x500.jpg"
             alt="First slide"
           />
         </Carousel.Item>
