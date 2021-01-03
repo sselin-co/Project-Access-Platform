@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,9 +30,9 @@ var photoURL = "/01_green_person_grad@3x.png";
 // DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process.
 export default function DisplayApplicantInfo(props) {
   // keeps track of state of the modal dialog box
-  const [modalShow, setModalShow] = React.useState(false);
-  const [rejectClicked, setRejectClicked] = React.useState(false);
-  const [disableButton, setDisableButton] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [rejectClicked, setRejectClicked] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const router = useRouter();
   const studentId = router.query.id ? router.query.id : props.id;
   const { data, error } = useSwr(`/api/applicant-info/${studentId}`, fetcher);
@@ -149,7 +149,11 @@ export default function DisplayApplicantInfo(props) {
           id={data.fields.id}
           name={data.fields.name}
           status={data.fields.applicationStatus.toString()}
-          rejectclicked={rejectClicked}
+          rejectclicked={rejectClicked.toString()}
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          backdrop="static"
         />
       </>
     );
