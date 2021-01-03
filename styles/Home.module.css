@@ -51,8 +51,6 @@
   text-decoration: underline;
 }
 
-
-
 .title {
   margin: 0;
   line-height: 1.15;
@@ -168,9 +166,24 @@
   line-height: 0px;
 }
 
+.carousel {
+  width: 900px;
+  height: 600px;
+  margin-bottom: auto;
+}
+
+.carouselImg {
+  width: auto;
+  height: 225px;
+}
+
 @media (max-width: 930px) {
   .alert {
     line-height: 100%;
+  }
+  .carousel {
+    width: auto;
+    height: auto;
   }
 }
 
