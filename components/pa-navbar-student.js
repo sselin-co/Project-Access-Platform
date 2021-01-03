@@ -27,6 +27,7 @@ export default function PaNavbarStudent(props) {
     const [accepted, setAccepted] = useState("");
     const [nonApp, setNonApp] = useState("");
     const ref = `/student/bootcamp/${props.email}`;
+    const preref = `/student/prebootcamp/${props.email}`;
     const { data, error } = useSwr(`/api/student/status`, fetcher);
    
     useEffect(() => {
@@ -79,7 +80,7 @@ export default function PaNavbarStudent(props) {
                     {nonApp && <Nav.Link target="_blank" href="https://airtable.com/shrp41zGmcAh0VI2T" className={styles.navLink}>
                         Start Application
                     </Nav.Link>}
-                    {accepted && <Nav.Link href="" className={styles.navLink}>
+                    {accepted && <Nav.Link href={preref} className={styles.navLink}>
                         Pre-Bootcamp Course
                     </Nav.Link>}
                     <Nav.Link href={ref} className={styles.navLink}>
