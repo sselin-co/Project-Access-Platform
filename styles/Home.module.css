@@ -7,9 +7,14 @@
   align-items: center;
 }
 
+/* .body {
+  margin: 60px 60px 60px 60px;
+} */
+
 .main {
   padding: 1rem;
   flex: 1;
+  margin: 60px 60px 60px 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
