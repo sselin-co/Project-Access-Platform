@@ -16,44 +16,43 @@ export default function StudentHome(props) {
 
             {/* <PaNavbar /> */}
             <PaNavbarStudent email={props.email}></PaNavbarStudent>
-
             <main className={styles.main}>
                 {/* <h1 className={styles.title}>Project Access Austria</h1> */}
-                <Carousel>
-                    <Carousel.Item interval={1000}>
+                <Carousel className={styles.carousel1}>
+                    <Carousel.Item className={styles.carousel} interval={1000}>
                         <img
-                            className="d-block w-100 h-100"
-                            width={100}
-                            height={100}
-                            src="/1500x500.jpg"
+                            className="d-block w-100"
+                            // width={900}
+                            // height={600}
+                            src="/1606741747667.jpg"
                             alt="First slide"
                         />
                     </Carousel.Item>
-                    <Carousel.Item interval={1000}>
+                    <Carousel.Item className={styles.carousel}>
                         <img
-                            className="d-block w-100 h-100"
-                            width={100}
-                            height={100}
+                            className="d-block w-100"
+                            // width={900}
+                            // height={600}
                             src="/1595842023397.jpg"
                             alt="Third slide"
                         />
                     </Carousel.Item>
-                    <Carousel.Item interval={1000}>
+                    <Carousel.Item className={styles.carousel}>
                         <img
-                            className="d-block w-100 h-100"
-                            width={100}
-                            height={100}
+                            className="d-block w-100"
+                            // width={900}
+                            // height={600}
                             src="/1598970833919.jpg"
                             alt="Third slide"
                         />
 
                     </Carousel.Item>
-                    <Carousel.Item interval={1000}>
+                    <Carousel.Item className={styles.carousel}>
                         <img
-                            className="d-block w-100 h-100"
-                            width={100}
-                            height={100}
-                            src="/1606741747667.jpg"
+                            className="d-block w-100"
+                            // width={900}
+                            // height={600}
+                            src="/1500x500.jpg" 
                             alt="First slide"
                         />
                     </Carousel.Item>
@@ -63,7 +62,7 @@ export default function StudentHome(props) {
             </main>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/wQf4C9AL1k0" 
             frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowFullccreen></iframe>
+            allowFullScreen></iframe>
 
             <div className="col work-col">
                 <div className="small-12 medium-5 medium-pull-7 columns">

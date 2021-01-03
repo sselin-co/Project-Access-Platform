@@ -26,45 +26,45 @@ export default function Home() {
 
       <main className={styles.main}>
         {/* <h1 className={styles.title}>Project Access Austria</h1> */}
-        <Carousel>
-          <Carousel.Item interval={1000}>
-            <img
-              className="d-block w-100 h-100"
-                width={100}
-                height={100}
-              src="/1500x500.jpg"
-              alt="First slide"
-            />
-          </Carousel.Item>
-            <Carousel.Item interval={1000}>
-            <img
-              className="d-block w-100 h-100"
-                width={100}
-                height={100}
-              src="/1595842023397.jpg"
-              alt="Third slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item interval={1000}>
-            <img
-              className="d-block w-100 h-100"
-                width={100}
-                height={100}
-              src="/1598970833919.jpg"
-              alt="Third slide"
-            />
-            
-          </Carousel.Item>
-          <Carousel.Item interval={1000}>
-            <img
-              className="d-block w-100 h-100"
-                width={100}
-                height={100}
-              src="/1606741747667.jpg"
-              alt="First slide"
-            />
-          </Carousel.Item>
-        </Carousel>
+          <Carousel className={styles.carousel1}>
+            <Carousel.Item className={styles.carousel} interval={1000}>
+              <img
+                className="d-block w-100"
+                // width={900}
+                // height={600}
+                src="/1606741747667.jpg"
+                alt="First slide"
+              />
+            </Carousel.Item>
+            <Carousel.Item className={styles.carousel}>
+              <img
+                className="d-block w-100"
+                // width={900}
+                // height={600}
+                src="/1595842023397.jpg"
+                alt="Third slide"
+              />
+            </Carousel.Item>
+            <Carousel.Item className={styles.carousel}>
+              <img
+                className="d-block w-100"
+                // width={900}
+                // height={600}
+                src="/1598970833919.jpg"
+                alt="Third slide"
+              />
+
+            </Carousel.Item>
+            <Carousel.Item className={styles.carousel}>
+              <img
+                className="d-block w-100"
+                // width={900}
+                // height={600}
+                src="/1500x500.jpg"
+                alt="First slide"
+              />
+            </Carousel.Item>
+          </Carousel>
 
           
       </main>
