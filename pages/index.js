@@ -4,7 +4,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import PaNavbar from "../components/pa-navbar.js";
 import StudentHome from "./student";
-import AdminDashboard from "./admin/admin-dashboard";
+import AdminDashboard from "../components/admin-dashboard";
 import Footer from "../pages/general/footer";
 import HomeCarousel from "../components/home-carousel";
 
