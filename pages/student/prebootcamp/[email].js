@@ -12,13 +12,23 @@ import Student from "../../api/utils/Student";
 import Levels from "./level";
 import Loading from "../../../components/loading";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+const info = (item, d) => {
+    var dead = [];
+    for (let key in item.courses) {
+        let value = item.courses[key];
+        dead.push(value[`${d}`]);
+    }
+    return dead;
+}
 
 export default function PreBootcamp() {
     const router = useRouter();
     const studentEmail = router.query.email;
     const [uid, setUid] = useState("");
+    const [titles, setTitles] = useState([]);
+    const [deadlines, setDeadlines] = useState([]);
     const [accepted, setAccepted] = useState("");
     const { data, error } = useSwr(`/api/student/learning-modules`, fetcher);
     
@@ -27,7 +37,7 @@ export default function PreBootcamp() {
     useEffect(() => {
         if (error) return <div>Failed to load applicant information</div>;
         if (!data) return <Loading />;
-        console.log(data);
+        //console.log(data);
 
         Student.appReturn(studentEmail, "id").then((data) => {
             setUid(data);
@@ -40,7 +50,11 @@ export default function PreBootcamp() {
             })
         }
 
-    })
+        if (data) {
+            setDeadlines(info(data, "deadline"));
+            setTitles(info(data, "title"));
+        }
+    }, [data, uid])
 
     return (
         <div className={styles.container}>
@@ -54,11 +68,12 @@ export default function PreBootcamp() {
             <h3 className={styles.title}>Pre-Bootcamp</h3>
             <main className={styles.main}>
                 {
-                    Object.keys(data).map((item, i) => 
-                        (<Levels submitted={accepted[`module_${i + 1}`]} title={item.title} review={accepted[`feedback_${i + 1}`]} deadline={item.deadline}></Levels>))
-                    //data.map(some => (<Levels submitted="" title={some.title} review="" deadline={some.deadline}></Levels>)
-                       
-                    //)
+                   data &&
+                     
+                        //(<Levels submitted={accepted[`module_${i + 1}`]} title={item.title} review={accepted[`feedback_${i + 1}`]} deadline={item.deadline}></Levels>))
+                    titles.map((t, i) => (<Levels submitted={accepted[`module_${i + 1}`]} title={t} review={accepted[`feedback_${i + 1}`]} deadline={deadlines[i]}></Levels>))
+                    
+                    
                 }
                     
 

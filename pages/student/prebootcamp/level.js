@@ -1,27 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import Image from 'next/image';
-import useSwr from "swr";
-import styles from "../../../styles/Home.module.css";
+// import Image from 'next/image';
+// import useSwr from "swr";
+// import styles from "../../../styles/Home.module.css";
 import Card from 'react-bootstrap/Card';
 import Loading from "../../../components/loading";
 
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+//const fetcher = (url) => fetch(url).then((res) => res.json());
 
 
 export default function Levels(props) {
-    // const router = useRouter();
-    // const studentEmail = router.query.email;
-    const { data, error } = useSwr(`/api/student/learning-modules`, fetcher);
-    //const { data, error } = useSwr(`/api/applicant-info/${studentEmail}`, fetcher);
-    
-
-    useEffect(() => {
-        if (error) return <div>Failed to load applicant information</div>;
-        if (!data) return <Loading />;
-        console.log(data);
-
-    })
 
     return (
        <>
