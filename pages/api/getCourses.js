@@ -1,11 +1,10 @@
-import { applicationTable } from "./utils/Airtable";
+import { modulesTable } from "./utils/Airtable";
 
 export default async function handler(req, res) {
-  const { id } = req.body;
   try {
-    const deletedRecords = await applicationTable.destroy([id]);
+    const records = await modulesTable.select({}).firstPage();
     res.statusCode = 200;
-    res.json(deletedRecords[0]);
+    res.json(records);
   } catch (err) {
     console.error(err);
     res.statusCode = 500;

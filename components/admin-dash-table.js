@@ -253,7 +253,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -281,7 +284,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -309,7 +315,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -337,7 +346,10 @@ export default function AdminDashTable() {
       >
         {(toolkitprops) => (
           <div>
-            <SearchBar {...toolkitprops.searchProps} />
+            <SearchBar
+              {...toolkitprops.searchProps}
+              placeholder="Search for applicants"
+            />
             <BootstrapTable
               striped
               hover
@@ -378,11 +390,9 @@ export default function AdminDashTable() {
           </PaginationProvider>
         </Tab>
         <Tab eventKey="link-2" title="Ongoing">
-          <div className={styles.grid}>
-            <PaginationProvider pagination={paginationFactory(options)}>
-              {contentTableOngoing}
-            </PaginationProvider>
-          </div>
+          <PaginationProvider pagination={paginationFactory(options)}>
+            {contentTableOngoing}
+          </PaginationProvider>
         </Tab>
         <Tab eventKey="link-3" title="Accepted">
           <PaginationProvider pagination={paginationFactory(options)}>

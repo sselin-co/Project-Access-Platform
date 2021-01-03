@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import Admin from "../pages/api/utils/Admin";
@@ -7,7 +7,6 @@ import Router from "next/router";
 export default function AdminApplicationModal(props) {
   var nextStage;
   const Message = () => {
-    console.log("Within Modal: " + props.rejectclicked);
     if (props.rejectclicked == true) {
       return (
         <p>
@@ -61,7 +60,8 @@ export default function AdminApplicationModal(props) {
 
   const confirmHandler = async () => {
     try {
-      if (props.rejectclicked == true) {
+      if (props.rejectclicked == "true") {
+        // Shaya: change to /api/admin/student-applications instead of direct reference
         await Admin.updateAppStatus(props.id, "rejected");
         setTimeout(function () {
           console.log("Succesful update");
@@ -79,12 +79,7 @@ export default function AdminApplicationModal(props) {
     }
   };
   return (
-    <Modal
-      {...props}
-      size="sm"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal {...props}>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Confirmation Dialog
@@ -98,7 +93,9 @@ export default function AdminApplicationModal(props) {
         </Row>
         <Row>
           <Col className="d-flex justify-content-center">
-            <Button variant="danger">Cancel</Button>
+            <Button onClick={props.onHide} variant="danger">
+              Cancel
+            </Button>
           </Col>
           <Col />
           <Col className="d-flex justify-content-center">

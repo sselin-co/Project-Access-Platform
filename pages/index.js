@@ -6,7 +6,6 @@ import PaNavbar from "../components/pa-navbar.js";
 import StudentHome from "./student";
 import AdminDashboard from "./admin/admin-dashboard";
 import Footer from "../pages/general/footer";
-import Carousel from "react-bootstrap/Carousel";
 import HomeCarousel from "../components/home-carousel";
 
 export default function Home() {

@@ -1,4 +1,7 @@
-import { table, getMinifiedApplicantRecord } from "../utils/Airtable";
+import {
+  applicationTable,
+  getMinifiedApplicantRecord,
+} from "../utils/Airtable";
 
 // API function to send a GET HTTP request with a specific ID.
 export default async function handler(req, res) {
@@ -6,7 +9,7 @@ export default async function handler(req, res) {
     const {
       query: { id },
     } = req;
-    const record = await table.find(id);
+    const record = await applicationTable.find(id);
     const minifiedRecord = getMinifiedApplicantRecord(record);
     res.statusCode = 200;
     res.json(minifiedRecord);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,9 +30,9 @@ var photoURL = "/01_green_person_grad@3x.png";
 // DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process.
 export default function DisplayApplicantInfo(props) {
   // keeps track of state of the modal dialog box
-  const [modalShow, setModalShow] = React.useState(false);
-  const [rejectClicked, setRejectClicked] = React.useState(false);
-  const [disableButton, setDisableButton] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [rejectClicked, setRejectClicked] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const router = useRouter();
   const studentId = router.query.id ? router.query.id : props.id;
   const { data, error } = useSwr(`/api/applicant-info/${studentId}`, fetcher);
@@ -91,19 +91,19 @@ export default function DisplayApplicantInfo(props) {
     switch (data.fields.applicationStatus.toString()) {
       case "written app submitted":
         buttonText = "Written application reviewed?";
-        menuText = "Approve Application";
+        menuText = "Approve Written Application";
         break;
       case "written app passed":
         buttonText = "Ready to schedule a consultation?";
-        menuText = "Invite to consultation";
+        menuText = "Invite to Consultation";
         break;
       case "consultation scheduled":
         buttonText = "Consultation completed?";
-        menuText = "Begin consultation review";
+        menuText = "Begin Consultation Review";
         break;
       case "consultation in review":
         buttonText = "Has an acceptance decision been made?";
-        menuText = "Accept applicant";
+        menuText = "Accept Applicant";
         break;
       case "accepted":
         buttonText = "Applicant has been accepted.";
@@ -115,7 +115,7 @@ export default function DisplayApplicantInfo(props) {
         break;
       case "appealing":
         buttonText = "Applicant is appealing.";
-        menuText = "Accept applicant";
+        menuText = "Accept Applicant";
         setDisableButton(false);
         break;
       default:
@@ -140,7 +140,7 @@ export default function DisplayApplicantInfo(props) {
               setModalShow(true);
             }}
           >
-            Reject Application
+            Reject Applicant
           </Dropdown.Item>
         </DropdownButton>
         <AdminApplicationModal
@@ -149,7 +149,11 @@ export default function DisplayApplicantInfo(props) {
           id={data.fields.id}
           name={data.fields.name}
           status={data.fields.applicationStatus.toString()}
-          rejectclicked={rejectClicked}
+          rejectclicked={rejectClicked.toString()}
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          backdrop="static"
         />
       </>
     );
@@ -185,6 +189,7 @@ export default function DisplayApplicantInfo(props) {
               View this applicant's files{" "}
               <a
                 href={
+                  // convert this to a .env variable
                   "https://airtable.com/tblEzSNgUrVlGFG1s/viwkWV3m9d4RH7sq9/" +
                   studentId
                 }

@@ -3,12 +3,14 @@ createApplicant.js: used to create a new applicant record in the base.
 Can be tested by placing a POST request with Postman and making the JSON body the required fields
 */
 
-import { table } from "./utils/Airtable";
+import { applicationTable } from "./utils/Airtable";
 
 export default async function handler(req, res) {
   const { email } = req.body;
   try {
-    const createdRecords = await table.create([{ fields: { email } }]);
+    const createdRecords = await applicationTable.create([
+      { fields: { email } },
+    ]);
     const createdRecord = {
       fields: createdRecords[0].fields,
     };
