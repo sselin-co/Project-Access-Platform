@@ -14,6 +14,7 @@ export default function CourseBuilderComponent(props) {
     marginLeft: "1rem",
   };
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [editorDisabled, setEditorDisabled] = useState(true);
   const [buttonPressed, setButtonPressed] = useState(false);
   const [buttonText, setButtonText] = useState("Edit Course Content");
@@ -85,6 +86,7 @@ export default function CourseBuilderComponent(props) {
           <Col>
             <Button
               variant={buttonVariant}
+              disabled={buttonDisabled}
               onClick={() => {
                 setButtonPressed(!buttonPressed);
                 if (!buttonPressed) {
@@ -92,9 +94,9 @@ export default function CourseBuilderComponent(props) {
                   setButtonVariant("success");
                   setEditorDisabled(false);
                 } else {
-                  setButtonText("Edit Course Content");
-                  setButtonVariant("warning");
                   setEditorDisabled(true);
+                  setButtonDisabled(true);
+                  setButtonText("Update pending...");
                   const updatedData = {
                     content: text.current,
                   };
