@@ -8,7 +8,7 @@ import { getSession } from 'next-auth/client'
  */
 export default async (req, res) => {
     const session = await getSession({ req });
-    if (true||session && session.user.name === "admin"){
+    if (session && session.user.name === "admin"){
         const {
             query: { id },
         } = req;
@@ -18,9 +18,8 @@ export default async (req, res) => {
                 await Admin.updateAppStatus(id, status);
                 const receiver = await Student.getEmail(id);
                 await Mailer.mail(receiver, "Project Access: Your application status has updated", "Hi, your application status has been updated. Please check on our website.");
-                res.json(`Status for student ${id} updated successfully.`);
+                res.status(200).json({message: `Status for student ${id} updated successfully.`});
             }catch (err) {
-                console.log("errorrrrrrrr");
                 res.status(400).json({error: err});
             }
         }

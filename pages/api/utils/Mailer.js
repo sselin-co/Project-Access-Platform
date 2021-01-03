@@ -1,9 +1,4 @@
-const Airtable = require("airtable");
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE_ID
-);
 const nodemailer = require("nodemailer");
-const { getEmail } = require("./Student");
 
 class Mailer{
     // async..await is not allowed in global scope, must use a wrapper
@@ -11,7 +6,7 @@ class Mailer{
         // Generate test SMTP service account from ethereal.email
         // Only needed if you don't have a real mail account for testing
         let testAccount = await nodemailer.createTestAccount();
-
+ 
         // create reusable transporter object using the default SMTP transport
         
         let transporter = nodemailer.createTransport({
@@ -26,7 +21,7 @@ class Mailer{
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-            from: '"Project Access" <foo@example.com>', // sender address
+            from: '"Project Access" <projectaccess@example.com>', // sender address
             to: `${receiver}`, // list of receivers
             subject: `${subject}`, // Subject line
             text: `${text}`, // plain text body
