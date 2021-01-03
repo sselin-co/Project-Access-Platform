@@ -161,6 +161,15 @@
   line-height: 0px;
 }
 
+.editable {
+  font-family: sans-serif;
+  margin-left: 10%;
+  width: 50vw;
+  min-height: 100px;
+  border: 1px dashed #aaa;
+  padding: 5px;
+}
+
 @media (max-width: 930px) {
   .alert {
     line-height: 100%;
