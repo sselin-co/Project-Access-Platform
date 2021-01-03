@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import PaNavbarAdmin from "./pa-navbar-admin.js";
 import Image from "next/image";
-import Link from "next/link";
+import Footer from "../pages/general/footer";
 import AdminDashTable from "./admin-dash-table.js";
 
 export default function AdminDashboard(props) {
