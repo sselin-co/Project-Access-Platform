@@ -18,7 +18,7 @@ export default function StudentHome(props) {
 
       <main className={styles.main}>
         {/* <h1 className={styles.title}>Project Access Austria</h1> */}
-        <HomeCarousel></HomeCarousel>
+        <HomeCarousel />
       </main>
       <iframe
         width="560"
