@@ -20,6 +20,7 @@
     "morgan": "~1.9.0",
     "next": "10.0.3",
     "next-auth": "^3.1.0",
+    "nodemailer": "*",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-table-next": "^4.0.3",

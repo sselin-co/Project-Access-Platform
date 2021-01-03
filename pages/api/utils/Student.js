@@ -46,6 +46,11 @@ class Student {
     }
   }
 
+  static async getEmail(id){
+    let record = await (await base('Application').find(id)).get("email");
+    return record;
+  }
+
   static async getStatus(email){
     let records = await base('Application').select({
       filterByFormula: `email = '${email}'`,
