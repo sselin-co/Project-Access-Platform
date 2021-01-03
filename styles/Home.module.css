@@ -61,8 +61,13 @@
   text-decoration: underline;
 }
 
+.med {
+  background: #3B8CD9;
+  padding: 0.5% 40% 0.5% 40%;
+}
+
 .title {
-  margin: 0;
+  margin: 30px 30px 50px 30px;
   line-height: 1.15;
   /* font-size: 4rem; */
   color: #fbac2b;
