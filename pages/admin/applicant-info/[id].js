@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "../../../styles/Home.module.css";
 import PaNavbarAdmin from "../../../components/pa-navbar-admin.js";
 import DisplayApplicantInfo from "../../../components/applicant-info";
+import Footer from "../../general/footer";
 /* 
 Shaya: 
   Because this page is accessed through a direct link, we cannot
@@ -34,7 +35,7 @@ export default function ApplicantInfo() {
         <DisplayApplicantInfo></DisplayApplicantInfo>
       </main>
 
-      <footer className={styles.footer}></footer>
+      <Footer />
     </div>
   );
 }

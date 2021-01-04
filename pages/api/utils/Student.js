@@ -57,6 +57,17 @@ class Student {
     }
   }
 
+  static async appIdReturn(id, col) {
+    let records = await base('Application').select({
+      filterByFormula: `id = '${id}'`,
+      fields: ["id", col]
+    }).firstPage();
+    if (records.length === 0) { console.log("id does not exist"); return false; }
+    else {
+      return records[0].get(col);
+    }
+  }
+
   static async getStatus(email){
     let records = await base('Application').select({
       filterByFormula: `email = '${email}'`,
@@ -113,7 +124,8 @@ class Student {
 
   static async oneAccepted(id){
     const record = await base('Application').find(id);
-    const student = {
+    if (record.get("status") == "accepted")
+    {const student = {
       id: record.getId(),
       email: record.get("email"),
       first_name: record.get("first_name"),
@@ -133,8 +145,9 @@ class Student {
       feedback_5: record.get("feedback_5"),
       feedback_6: record.get("feedback_6"),
     };
-    console.log(student);
-    return student;
+    //console.log(student);
+    return student;}
+    else return false;
   }
 
   static async submitAssignment(student_id, module_number, submission){
