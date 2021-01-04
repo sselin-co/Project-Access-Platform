@@ -15,13 +15,13 @@ Shaya:
   Airtable throws a 404 when opening a student record in a new tab. It doesn't
   seem to effect functionality at all, it just crops up for some reason. 
 */
-// import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 
 /*
 ApplicationInfo: dynamically routed page for applicant information. 
 */
 export default function ApplicantInfo() {
-  // const [session, loading] = useSession();
+  const [session, loading] = useSession();
   return (
     <div className={styles.container}>
       <Head>
@@ -29,7 +29,7 @@ export default function ApplicantInfo() {
         <link rel="icon" href="/logo_key_colour_highres.ico" />
       </Head>
 
-      <PaNavbarAdmin />
+      <PaNavbarAdmin email={session.user.email} />
 
       <main className={styles.main}>
         <DisplayApplicantInfo></DisplayApplicantInfo>

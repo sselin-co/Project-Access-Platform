@@ -6,8 +6,9 @@ import Router from "next/router";
 
 export default function AdminApplicationModal(props) {
   var nextStage;
+  console.log(props.rejectclicked);
   const Message = () => {
-    if (props.rejectclicked == true) {
+    if (props.rejectclicked == "true") {
       return (
         <p>
           You are about to reject <b>{props.name}</b>. Are you sure you want to
