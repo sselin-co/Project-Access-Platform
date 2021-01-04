@@ -39,11 +39,13 @@ Specific Figma Designs:
 - Admin flow for viewing a student's course progress and submitting feedback isn't complete. 
 - Admin flow for an appealing student isn't complete. 
 - Functionality to send emails to applicants on application status changes is implemented but needs to be interfaced with the front end.
+- UI consistency and fluidness can be improved.
 
 ## Missing Features
-- Mentor matching capabilities (we even have the designs for this!)
-- A component displaying meta data about Project Access webinars and events and the ability to sign up for them. 
+- A component displaying meta data about Project Access webinars and events and the ability to sign up for them.
+- Mentor matching capabilities (we even have the designs for this!) 
 - Admin flow for viewing an applicant's application process links to Airtable directly. Preferably this would be integrated with the site. 
 - More robust data validation on both front and back ends.  
 - Ability to add videos and hyperlinks to admin course builder. 
+- A unit testing schema. 
 
