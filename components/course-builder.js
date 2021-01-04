@@ -78,6 +78,7 @@ export default function CourseBuilderComponent(props) {
         <ButtonToolbar
           aria-label="text formatting button group"
           style={buttonStyle}
+          className="fixed-bottom"
         >
           <ButtonGroup className="mr-2">
             <Button

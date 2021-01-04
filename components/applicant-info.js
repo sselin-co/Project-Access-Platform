@@ -18,7 +18,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import AdminApplicationModal from "../components/admin-application-modal";
 import { BsArrowLeft } from "react-icons/bs";
-import Admin from "../pages/api/utils/Admin";
 
 // fetcher: Defines the structure of data being received from Airtable via SWR
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -38,7 +37,6 @@ export default function DisplayApplicantInfo(props) {
   const { data, error } = useSwr(`/api/applicant-info/${studentId}`, fetcher);
   if (error) return <div>Failed to load applicant information</div>;
   if (!data) return <Loading />;
-  console.log(data);
 
   if (data.fields.photo != null) photoURL = data.fields.photo[0].url;
   else photoURL = "/01_green_person_grad@3x.png";

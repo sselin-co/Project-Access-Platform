@@ -52,7 +52,10 @@ export default function PaNavbarAdmin(props) {
           <Nav.Link href="/admin/course-builder" className={styles.navLink}>
             Course Builder
           </Nav.Link>
-          <Nav.Link href="#link" className={styles.navLink}>
+          <Nav.Link
+            href="/admin/student-assignments"
+            className={styles.navLink}
+          >
             Students
           </Nav.Link>
 

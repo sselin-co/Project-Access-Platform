@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
 import styles from "../../../styles/Home.module.css";
 import Head from "next/head";
-import Link from "next/link";
 import PaNavbarAdmin from "../../../components/pa-navbar-admin";
-import CourseTable from "../../../components/course-table";
 import { useSession } from "next-auth/client";
-import { Redirect } from "react-router-dom";
-import { useRouter } from "next/router";
+import AssignmentTable from "../../../components/admin-assignment-table";
+import Footer from "../../general/footer";
 
-export default function CourseBuilder(props) {
+export default function StudentAssignments() {
   const [session, loading] = useSession();
-  const router = useRouter();
-
   return (
     <div className={styles.container}>
+      {" "}
       <Head>
-        <title>Course Builder</title>
+        <title>Student Assignments</title>
         <link rel="icon" href="/logo_key_colour_highres.ico" />
       </Head>
       {session && session.user.name == "admin" && (
@@ -23,16 +20,11 @@ export default function CourseBuilder(props) {
           <PaNavbarAdmin email={session.user.email}></PaNavbarAdmin>
 
           <main className={styles.main}>
-            <CourseTable />
+            <AssignmentTable></AssignmentTable>
           </main>
+          <Footer />
         </>
       )}
-      {/* {!session &&
-        useEffect(() => {
-          router.push("/");
-        })} */}
-
-      <footer className={styles.footer}></footer>
     </div>
   );
 }
