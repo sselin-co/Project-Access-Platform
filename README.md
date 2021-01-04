@@ -15,5 +15,5 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to view our website.
 
-[https://lucid.app/lucidchart/invitations/accept/63338e18-7ff3-4ac6-a945-ec1f77d14dcd](Our UML Diagrams)
-[https://www.figma.com/file/1veERhNjefvS6BrLyoWeST/Project-Access](Our Figma Designs)
+[Our UML Diagrams](https://lucid.app/lucidchart/invitations/accept/63338e18-7ff3-4ac6-a945-ec1f77d14dcd)
+[Our Figma Designs](https://www.figma.com/file/1veERhNjefvS6BrLyoWeST/Project-Access)
