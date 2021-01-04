@@ -12,6 +12,7 @@ import Loading from "../../../components/loading";
 export default function Levels(props) {
     const [modalShow, setModalShow] = useState(false);
     const [feedback, setFeedback] = useState("");
+    const ref = `/student/prebootcamp/course/${props.cid}?sid=${props.stuEmail}`;
    
     useEffect(() => {
         if(props.review)
@@ -24,7 +25,7 @@ export default function Levels(props) {
             {props.submitted && 
             (<Card style={{ width: '18rem' }}>
                 <Card.Body>
-                    <Card.Title>{props.title}</Card.Title>
+                    <Card.Title><a href={ref}>{props.title}</a></Card.Title>
                     <Card.Subtitle className="mb-2">Deadline - {props.deadline}</Card.Subtitle>
                     <Card.Link  onClick={() => {
                         setModalShow(true);
