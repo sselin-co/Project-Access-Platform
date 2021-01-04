@@ -40,7 +40,7 @@ Specific Figma Designs:
 - Admin flow for viewing a student's course progress and submitting feedback isn't complete. 
 - Admin flow for an appealing student isn't complete. 
 - Functionality to send emails to applicants on application status changes is implemented but needs to be interfaced with the front end.
-- UI consistency and fluidness can be improved.
+- UI consistency and fluidness can be improved. Homepage could use an overhaul. 
 
 ## Missing Features
 - A component displaying meta data about Project Access webinars and events and the ability to sign up for them.
