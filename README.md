@@ -14,7 +14,7 @@ npm run dev
 # or
 yarn dev
 ```
-You will also need to declare a .env.local file in the top level directory that contains an Airtable API key and base ID. 
+You will also need to declare a `.env.local` file in the top level directory that contains an Airtable API key and base ID. 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to view our website.
 
