@@ -34,4 +34,16 @@ Specific Figma Designs:
 
 [Student Prebootcamp Courses Flow](https://www.figma.com/proto/7itluWV1jRIrf7syMiToot/Bootcamp-Flow-Student?node-id=1%3A21&viewport=519%2C352%2C0.1103837862610817&scaling=min-zoom)
 
+## Known Issues
+- Logging out of an account won't reliably redirect the user to the homepage. 
+- Admin flow for viewing a student's course progress and submitting feedback isn't complete. 
+- Admin flow for an appealing student isn't complete. 
+- Functionality to send emails to applicants on application status changes is implemented but needs to be interfaced with the front end.
+
+## Missing Features
+- Mentor matching capabilities (we even have the designs for this!)
+- A component displaying meta data about Project Access webinars and events and the ability to sign up for them. 
+- Admin flow for viewing an applicant's application process links to Airtable directly. Preferably this would be integrated with the site. 
+- More robust data validation on both front and back ends.  
+- Ability to add videos and hyperlinks to admin course builder. 
 
