@@ -36,7 +36,7 @@ Specific Figma Designs:
 - [Student Prebootcamp Courses Flow](https://www.figma.com/proto/7itluWV1jRIrf7syMiToot/Bootcamp-Flow-Student?node-id=1%3A21&viewport=519%2C352%2C0.1103837862610817&scaling=min-zoom)
 
 ## Known Issues
-- Logging out of an account won't reliably redirect the user to the homepage. 
+- Logging out of an account sometimes won't reliably redirect the user to the homepage. 
 - Admin flow for viewing a student's course progress and submitting feedback isn't complete. 
 - Admin flow for an appealing student isn't complete. 
 - Functionality to send emails to applicants on application status changes is implemented but needs to be interfaced with the front end.
