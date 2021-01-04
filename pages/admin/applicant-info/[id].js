@@ -22,6 +22,7 @@ ApplicationInfo: dynamically routed page for applicant information.
 */
 export default function ApplicantInfo() {
   const [session, loading] = useSession();
+  if (loading) return null;
   return (
     <div className={styles.container}>
       <Head>
