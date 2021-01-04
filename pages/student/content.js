@@ -11,7 +11,7 @@ export default function Content(props) {
                 <div className="details details-ftm">
                     <h3 className="text-center">{props.title}</h3>
 
-                    <p className="icons"><i className="fi-monitor"></i><i className="fi-tablet-portrait"></i><i class="fi-mobile"></i></p>
+                    {/* <p className="icons"><i className="fi-monitor"></i><i className="fi-tablet-portrait"></i><i class="fi-mobile"></i></p> */}
                     <p>{props.content}</p>
                 </div>
             </div>
