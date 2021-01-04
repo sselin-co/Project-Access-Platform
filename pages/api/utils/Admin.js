@@ -57,8 +57,8 @@ class Admin {
     }
   }
 
-  static async giveFeedback(student_id, module_number, feedback){
-    switch(module_number){
+  static async giveFeedback(student_id, module_number, feedback) {
+    switch (module_number) {
       case 1:
         await base("Application").update(
           [
@@ -174,7 +174,7 @@ class Admin {
         );
         break;
       default:
-        throw "invalid module number"
+        throw "invalid module number";
     }
   }
 }
