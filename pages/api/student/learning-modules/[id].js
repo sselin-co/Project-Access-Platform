@@ -12,7 +12,7 @@ import Course from "../../utils/Course.js"
 export default async (req, res) => {
   const session = await getSession({ req })
 
-  if (session && session.user.name === "admin") {
+  if (session && session.user.name === "student") {
     try{
         const {
             query: { id },
