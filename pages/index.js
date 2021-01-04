@@ -7,6 +7,7 @@ import StudentHome from "./student";
 import AdminDashboard from "../components/admin-dashboard";
 import Footer from "../pages/general/footer";
 import HomeCarousel from "../components/home-carousel";
+
 export default function Home() {
   const [session, loading] = useSession();
 
