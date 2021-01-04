@@ -3,8 +3,10 @@ import Head from "next/head";
 import useSwr from "swr";
 import { useRouter } from "next/router";
 import Image from 'next/image';
+import SubmitAssignmentModal from "../../../components/submit-assigment";
 import {
-    Media
+    Media,
+    Button
 } from "react-bootstrap";
 import styles from "../../../styles/Home.module.css";
 import PaNavbarStudent from "../../../components/pa-navbar-student.js";
@@ -14,6 +16,7 @@ import Footer from "../../general/footer";
 import Student from "../../api/utils/Student";
 import Levels from "./level";
 import Loading from "../../../components/loading";
+//import { Button } from "bootstrap";
 
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -38,7 +41,9 @@ const infor = (item, d) => {
 export default function PreBootcamp() {
     const router = useRouter();
     const studentEmail = router.query.email;
+    const [showin, setShowin] = useState(false);
     const [uid, setUid] = useState("");
+    const [ids, setIds] = useState([]);
     const [nextModule, setNextModule] = useState("");
     const [titles, setTitles] = useState([]);
     const [contents, setContents] = useState([]);
@@ -78,6 +83,7 @@ export default function PreBootcamp() {
             setDeadlines(info(data, "deadline"));
             setTitles(info(data, "title"));
             setContents(info(data, "content"));
+            setIds(info(data, "id"));
         }
     }, [data, uid, accepted])
 
@@ -109,30 +115,23 @@ export default function PreBootcamp() {
                     </p>
                 </Media.Body>
             </Media>
-            {/* <Container className="text-center">
-                <CardColumns>
-                    <Card>
-                        <Card.Img variant="top" width={90}
-                            height={200} src="/PA_Rocket_2.png" />
-                    </Card>
-                    <Card className="p-3">
-                        <blockquote className="blockquote mb-0 card-body">
-                            <p>
-                                Keep progressing!
-                            </p>
-                            <p>
-                                Continue working on Level {nextModule}
-                            </p>
-                        </blockquote>
-                    </Card>
-                </CardColumns>
-            </Container> */}
+            
+
+            <SubmitAssignmentModal
+                show={showin}
+                onHide={() => setShowin(false)}
+                size="sm"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                backdrop="static"
+            />
+            
             <main className={styles.main}>
                 {
                    data &&
                      
                         //(<Levels submitted={accepted[`module_${i + 1}`]} title={item.title} review={accepted[`feedback_${i + 1}`]} deadline={item.deadline}></Levels>))
-                    titles.map((t, i) => (<Levels key={t} submitted={accepted[`module_${i + 1}`]} title={t} review={accepted[`feedback_${i + 1}`]} content={contents[i]} deadline={deadlines[i]}></Levels>))
+                    titles.map((t, i) => (<Levels key={t} stuEmail={studentEmail} submitted={accepted[`module_${i + 1}`]} title={t} review={accepted[`feedback_${i + 1}`]} content={contents[i]} cid={ids[i]} deadline={deadlines[i]}></Levels>))
                     
                     
                 }
