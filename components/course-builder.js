@@ -1,17 +1,30 @@
 import React, { useRef, useState } from "react";
 import styles from "../styles/Home.module.css";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  Button,
+  ButtonToolbar,
+  ButtonGroup,
+} from "react-bootstrap";
 import useSwr from "swr";
 import Loading from "../components/loading";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { BsX } from "react-icons/bs";
+import { BsX, BsArrowLeft } from "react-icons/bs";
 import ContentEditable from "react-contenteditable";
 // import CourseContentEditor from "../components/course-content-editor";
+import { useSession } from "next-auth/client";
 
+// TODO: Component uses a fairly basic text editor, switch to Draft.js asap
 export default function CourseBuilderComponent(props) {
   const style = {
     marginLeft: "1rem",
+  };
+
+  const buttonStyle = {
+    margin: "1rem",
   };
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -33,13 +46,17 @@ export default function CourseBuilderComponent(props) {
 
   const courseContent = data.course.content;
 
+  const sanitizeConf = {
+    allowedTags: ["b", "i", "em", "strong", "a", "p", "h1"],
+    allowedAttributes: { a: ["href"] },
+  };
+
   const CourseContentEditor = () => {
     text = useRef(courseContent);
     let contentEditable = React.createRef();
     const handleChange = (event) => {
       text.current = event.target.value;
     };
-
     const handleBlur = () => {
       // console.log(text.current);
       console.log(text);
@@ -52,12 +69,163 @@ export default function CourseBuilderComponent(props) {
           className={styles.editable}
           innerRef={contentEditable}
           html={text.current} // innerHTML of the editable div
-          disabled={false} // use true to disable editing
           onChange={handleChange} // handle innerHTML change
           tagName="article" // Use a custom HTML tag (uses a div by default)
           onBlur={handleBlur}
           disabled={editorDisabled}
+          style={editorDisabled ? { opacity: "0.5" } : { opacity: "1.0" }}
         />
+        <ButtonToolbar
+          aria-label="text formatting button group"
+          style={buttonStyle}
+          className="fixed-bottom"
+        >
+          <ButtonGroup className="mr-2">
+            <Button
+              key={"italic"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("italic", false); // Send the command to the browser
+              }}
+            >
+              Italics
+            </Button>
+            <Button
+              key={"bold"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("bold", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Bold
+            </Button>
+            <Button
+              key={"underline"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("underline", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Underline
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup className="mr-2">
+            <Button
+              key={"formatBlock"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("formatBlock", false, "h1"); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              H1
+            </Button>
+            <Button
+              key={"formatBlock"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("formatBlock", false, "h2"); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              H2
+            </Button>
+            <Button
+              key={"formatBlock"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("formatBlock", false, "h3"); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              H3
+            </Button>
+            <Button
+              key={"formatBlock"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("formatBlock", false, "h4"); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              H4
+            </Button>
+            <Button
+              key={"formatBlock"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("formatBlock", false, "h5"); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              H5
+            </Button>
+            <Button
+              key={"formatBlock"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("formatBlock", false, "h6"); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              H6
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup className="mr-2">
+            <Button
+              key={"indent"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("indent", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Indent
+            </Button>
+            <Button
+              key={"insertHorizontalRule"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("insertHorizontalRule", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Divider
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup className="mr-2">
+            <Button
+              key={"justifyLeft"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("justifyLeft", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Left
+            </Button>
+            <Button
+              key={"justifyCenter"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("justifyCenter", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Center
+            </Button>
+            <Button
+              key={"justifyRight"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("justifyRight", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Right
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button
+              key={"removeFormat"}
+              onMouseDown={(evt) => {
+                evt.preventDefault(); // Avoids loosing focus from the editable area
+                document.execCommand("removeFormat", false); // Send the command to the browser. Obsolete, update to a modern solution ASAP
+              }}
+            >
+              Clear formatting
+            </Button>
+          </ButtonGroup>
+        </ButtonToolbar>
       </div>
     );
   };
@@ -68,22 +236,25 @@ export default function CourseBuilderComponent(props) {
         {" "}
         <Row>
           <Col xs lg="3">
-            <Image
+            <Button
+              variant="warning"
+              onClick={() => {
+                router.back();
+              }}
+            >
+              <BsArrowLeft />
+            </Button>
+            {/* <Image
               src="/01_green_teacher_blackboard@3x.png"
               width={100}
               height={100}
               className="d-inline-block align-top"
               alt="Course builder icon"
-            />
+            /> */}
           </Col>
           <Col>
             <h1>{data.course.title}</h1>
-            <h5 className="text-muted">Course level: {data.course.level}</h5>
-            <h5 className="text-muted">
-              Submission deadline: {data.course.deadline}
-            </h5>
-          </Col>
-          <Col>
+
             <Button
               variant={buttonVariant}
               disabled={buttonDisabled}
@@ -135,6 +306,12 @@ export default function CourseBuilderComponent(props) {
                 <BsX />
               </Button>
             ) : null}
+          </Col>
+          <Col xs={4}>
+            <h5 className="text-muted">Course level: {data.course.level}</h5>
+            <h5 className="text-muted">
+              Submission deadline: {data.course.deadline}
+            </h5>
           </Col>
         </Row>
       </Container>

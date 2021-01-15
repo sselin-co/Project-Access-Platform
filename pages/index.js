@@ -1,5 +1,5 @@
 import React from "react";
-import { useSession } from "next-auth/client";
+import { useSession, Provider } from "next-auth/client";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import PaNavbar from "../components/pa-navbar.js";
