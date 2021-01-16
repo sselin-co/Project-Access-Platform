@@ -131,7 +131,7 @@ export default function PreBootcamp() {
                    data &&
                      
                         //(<Levels submitted={accepted[`module_${i + 1}`]} title={item.title} review={accepted[`feedback_${i + 1}`]} deadline={item.deadline}></Levels>))
-                    titles.map((t, i) => (<Levels key={t} stuEmail={studentEmail} submitted={accepted[`module_${i + 1}`]} title={t} review={accepted[`feedback_${i + 1}`]} content={contents[i]} cid={ids[i]} deadline={deadlines[i]}></Levels>))
+                    titles.map((t, i) => (<Levels key={t} next={nextModule==i+1} stuEmail={studentEmail} submitted={accepted[`module_${i + 1}`]} title={t} review={accepted[`feedback_${i + 1}`]} content={contents[i]} cid={ids[i]} deadline={deadlines[i]}></Levels>))
                     
                     
                 }
