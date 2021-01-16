@@ -24,6 +24,24 @@ export default function StudentAssignmentsTable(props) {
   const handleShow = () => setShow(true);
 
   const [modalText, setModalText] = useState("");
+  const onFormSubmit = (e) => {
+    const formData = new FormData(e.target),
+      formDataObj = Object.fromEntries(formData.entries());
+
+    const updatedData = {
+      content: formDataObj,
+    };
+    const otherParam = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(updatedData),
+    };
+    console.log(otherParam);
+    e.preventDefault();
+  };
+
   const style = {
     paddingTop: "1.5rem",
     paddingRight: "2rem",
@@ -36,7 +54,6 @@ export default function StudentAssignmentsTable(props) {
   if (error)
     return <div>Failed to load applicant information. Error: {error}</div>;
   if (!data) return <Loading />;
-  console.log(data.student.first_name + data.student.last_name);
 
   const FeedbackButton = (props) => {
     return (
@@ -46,7 +63,6 @@ export default function StudentAssignmentsTable(props) {
           onClick={() => {
             setShow(true);
             setModalText(data.student.first_name + data.student.last_name);
-            console.log("In Button:" + props.studentname);
           }}
         >
           Submit Feedback
@@ -57,7 +73,6 @@ export default function StudentAssignmentsTable(props) {
   };
 
   const FeedbackModal = (props) => {
-    console.log("In Modal:" + modalText);
     return (
       <div>
         <Modal show={show} onHide={handleClose} centered>
@@ -67,22 +82,24 @@ export default function StudentAssignmentsTable(props) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form
+              onSubmit={onFormSubmit}
+              controlId="exampleForm.ControlTextarea1"
+            >
               <Form.Label>
                 Would you like to submit assignment feedback to{" "}
                 <b>{modalText}</b>?
               </Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Enter feedback</Form.Label>
+                <Form.Control as="textarea" placeholder="Feedback" />
+              </Form.Group>
+              <Button variant="success" type="submit">
+                Submit
+              </Button>
+            </Form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button variant="success" onClick={handleClose}>
-              Submit Feedback
-            </Button>
-          </Modal.Footer>
+          <Modal.Footer></Modal.Footer>
         </Modal>
       </div>
     );
