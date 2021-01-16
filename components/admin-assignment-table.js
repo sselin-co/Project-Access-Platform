@@ -81,7 +81,7 @@ export default function AssignmentTable() {
     },
     {
       dataField: "last_assignment_submitted",
-      text: "Level Number",
+      text: "Module Number",
       formatter: moduleNumberFormatter,
       sort: true,
       align: "center",
@@ -170,7 +170,7 @@ export default function AssignmentTable() {
     console.log("In Modal:" + modalText);
     return (
       <div>
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               Assignment Reminder
@@ -180,11 +180,11 @@ export default function AssignmentTable() {
             Would you like to send an assignment reminder to <b>{modalText}</b>?
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
+            <Button variant="danger" onClick={handleClose}>
+              Cancel
             </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
+            <Button variant="success" onClick={handleClose}>
+              Send Email
             </Button>
           </Modal.Footer>
         </Modal>

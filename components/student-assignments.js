@@ -26,7 +26,6 @@ var applicationStage;
 // photoURL: Stores the url for an applicants profile picture. Defaults to a stock image
 var photoURL = "/01_green_person_grad@3x.png";
 
-// DisplayApplicantInfo: displays applicant info and allows the admin to move the applicant along in the process.
 export default function StudentAssignments(props) {
   const router = useRouter();
   const studentId = router.query.id ? router.query.id : props.id;

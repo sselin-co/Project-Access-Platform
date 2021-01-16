@@ -2,16 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Tabs,
-  Tab,
-  Col,
-  Row,
-  Alert,
-  Button,
-  Container,
-  Modal,
-} from "react-bootstrap";
+import { Button, Modal, Table, Form } from "react-bootstrap";
 import useSwr from "swr";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
@@ -42,147 +33,54 @@ export default function StudentAssignmentsTable(props) {
     `/api/admin/accepted-students/${props.studentid}`,
     fetcher
   );
-  console.log(data.student);
   if (error)
     return <div>Failed to load applicant information. Error: {error}</div>;
   if (!data) return <Loading />;
+  console.log(data.student.first_name + data.student.last_name);
 
-  // TODO: place formatter functions into admin/utils
-  function applicantNameFormatter(cell, row) {
-    var studentId = row.id;
-    return (
-      // Dynamic route to info of clicked applicant
-      <Link
-        href={"/admin/student-assignments/[id]"}
-        as={`/admin/student-assignments/${studentId}`}
-      >
-        <a>{cell}</a>
-      </Link>
-    );
-  }
-
-  function moduleNumberFormatter(cell, row) {
-    return <>{cell}</>;
-  }
-
-  function reminderFormatter(cell, row) {
-    return <ReminderButton studentname={row.full_name} />;
-  }
-
-  const columns = [
-    {
-      dataField: "last_assignment_submitted",
-      text: "Level Number",
-      formatter: applicantNameFormatter,
-      sort: true,
-      align: "center",
-    },
-    {
-      dataField: "education_level",
-      text: "Applying For",
-      align: "center",
-    },
-    {
-      dataField: "last_assignment_submitted",
-      text: "Level Number",
-      formatter: moduleNumberFormatter,
-      sort: true,
-      align: "center",
-    },
-    {
-      dataField: "id",
-      text: "Reminders",
-      formatter: reminderFormatter,
-      align: "center",
-    },
-  ];
-
-  const { SearchBar } = Search;
-
-  const defaultSorted = [
-    {
-      dataField: "last_assignment_submitted",
-      order: "asc",
-    },
-  ];
-
-  const options = {
-    custom: true,
-    paginationSize: 4,
-    pageStartIndex: 1,
-    nextPageTitle: "First page",
-    prePageTitle: "Pre page",
-    firstPageTitle: "Next page",
-    lastPageTitle: "Last page",
-    showTotal: true,
-    totalSize: data.student.length,
-    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-  };
-
-  const contentTable = ({ paginationProps, paginationTableProps }) => (
-    <div className={styles.grid}>
-      <ToolkitProvider
-        keyField="accepted.full_name"
-        columns={columns}
-        data={data.student}
-        bootstrap4
-      >
-        {(toolkitprops) => (
-          <div>
-            <BootstrapTable
-              striped
-              hover
-              noDataIndication="Table is Empty"
-              defaultSorted={defaultSorted}
-              {...toolkitprops.baseProps}
-              {...paginationTableProps}
-            />
-            <SizePerPageDropdownStandalone {...paginationProps} />
-          </div>
-        )}
-      </ToolkitProvider>
-      <PaginationListStandalone {...paginationProps} />
-      <ReminderModal />
-    </div>
-  );
-
-  const ReminderButton = (props) => {
+  const FeedbackButton = (props) => {
     return (
       <div>
         <Button
-          variant="danger"
+          variant="primary"
           onClick={() => {
             setShow(true);
-            setModalText(props.studentname);
+            setModalText(data.student.first_name + data.student.last_name);
             console.log("In Button:" + props.studentname);
           }}
         >
-          Send Assignment Reminder
+          Submit Feedback
         </Button>
-        <ReminderModal />
+        <FeedbackModal />
       </div>
     );
   };
 
-  const ReminderModal = (props) => {
+  const FeedbackModal = (props) => {
     console.log("In Modal:" + modalText);
     return (
       <div>
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Assignment Reminder
+              Submit Feedback
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Would you like to send an assignment reminder to <b>{modalText}</b>?
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>
+                Would you like to submit assignment feedback to{" "}
+                <b>{modalText}</b>?
+              </Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>
               Cancel
             </Button>
             <Button variant="success" onClick={handleClose}>
-              Send Email
+              Submit Feedback
             </Button>
           </Modal.Footer>
         </Modal>
@@ -190,11 +88,55 @@ export default function StudentAssignmentsTable(props) {
     );
   };
 
+  const ContentTable = () => {
+    return (
+      <Table striped bordered hover responsive>
+        <thead>
+          <tr>
+            <th>Module Number</th>
+            <th>Submission</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <Link href={data.student.module_1[0].url}>
+                <a>View Submission</a>
+              </Link>
+            </td>
+            <td>
+              <FeedbackButton
+                studentname={
+                  data.student.first_name + " " + data.student.last_name
+                }
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              <Link href={data.student.module_1[0].url}>
+                <a>View Submission</a>
+              </Link>
+            </td>
+            <td>
+              <FeedbackButton
+                studentname={
+                  data.student.first_name + " " + data.student.last_name
+                }
+              />
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  };
+
   return (
     <>
-      <PaginationProvider pagination={paginationFactory(options)}>
-        {contentTable}
-      </PaginationProvider>
+      <ContentTable />
     </>
   );
 }
