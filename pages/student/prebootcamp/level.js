@@ -12,30 +12,33 @@ import Loading from "../../../components/loading";
 export default function Levels(props) {
     const [modalShow, setModalShow] = useState(false);
     const [feedback, setFeedback] = useState("");
+    const [next, setNext] = useState(false);
     const ref = `/student/prebootcamp/course/${props.cid}?sid=${props.stuEmail}`;
    
     useEffect(() => {
         if(props.review)
         setFeedback(props.review);
-    })
 
+        if (props.next)
+            setNext(props.next);
+    });
 
     return (
        <>
-            {props.submitted && 
+            {(props.submitted || next) && 
             (<Card style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title><a href={ref}>{props.title}</a></Card.Title>
                     <Card.Subtitle className="mb-2">Deadline - {props.deadline}</Card.Subtitle>
-                    <Card.Link  onClick={() => {
+                    {!next && <Card.Link  onClick={() => {
                         setModalShow(true);
-                    }}>Review Feedback</Card.Link>
+                    }}>Review Feedback</Card.Link>}
                 </Card.Body>
             </Card>
             )
             }
 
-            {!props.submitted && <Card style={{ width: '18rem' }}>
+            {!props.submitted && !next && <Card style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title className="mb-2 text-muted">{props.title}</Card.Title>
                     <Card.Subtitle >Deadline - {props.deadline}</Card.Subtitle>
