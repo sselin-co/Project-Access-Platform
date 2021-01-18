@@ -4,7 +4,7 @@ This is the working repo for our Project Access project, as part of the Menon La
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and deployed with [Vercel](https://vercel.com/).
 
 ## Getting Started
-Our website is [deployed here.](https://project-access-platform.vercel.app/)
+Our website is [deployed here.](https://pa-platform.vercel.app/)
 
 
 If you want to run our site locally, follow these directions: Clone or download the .zip for the repo, navigate to the repo in command line, then run the development server:
